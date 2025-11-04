@@ -1,0 +1,40 @@
+package io.codibase.server.search.entity.agent;
+
+import org.jspecify.annotations.Nullable;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.From;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Predicate;
+
+import io.codibase.server.CodiBase;
+import io.codibase.server.service.BuildService;
+import io.codibase.server.model.Agent;
+import io.codibase.server.model.Build;
+import io.codibase.server.util.ProjectScope;
+import io.codibase.server.util.criteria.Criteria;
+
+public class HasRunningBuildsCriteria extends Criteria<Agent> {
+
+	private static final long serialVersionUID = 1L;
+
+	@Override
+	public Predicate getPredicate(@Nullable ProjectScope projectScope, CriteriaQuery<?> query, From<Agent, Agent> from, CriteriaBuilder builder) {
+		Join<?, ?> join = from.join(Agent.PROP_BUILDS, JoinType.LEFT);
+		join.on(builder.equal(join.get(Build.PROP_STATUS), Build.Status.RUNNING));
+		return join.isNotNull();
+	}
+
+	@Override
+	public boolean matches(Agent agent) {
+		return !CodiBase.getInstance(BuildService.class).query(agent, Build.Status.RUNNING).isEmpty();
+	}
+
+	@Override
+	public String toStringWithoutParens() {
+		return AgentQuery.getRuleName(AgentQueryLexer.HasRunningBuilds);
+	}
+
+}
+

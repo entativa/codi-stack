@@ -1,0 +1,597 @@
+{
+  "name": "vscode-pilotcodi",
+  "publisher": "PilotCodiML",
+  "displayName": "PilotCodi",
+  "description": "PilotCodi is a self-hosted AI coding assistant that can suggest multi-line code or full functions in real-time.",
+  "homepage": "https://www.pilotcodiml.com/",
+  "repository": "https://github.com/PilotCodiML/pilotcodi",
+  "bugs": "https://github.com/PilotCodiML/pilotcodi/issues",
+  "license": "Apache-2.0",
+  "version": "1.27.0-dev",
+  "keywords": [
+    "ai",
+    "autocomplete",
+    "code completion",
+    "copilot",
+    "intellisense",
+    "intellicode",
+    "snippets",
+    "pilotcodi"
+  ],
+  "icon": "assets/logo.png",
+  "engines": {
+    "vscode": "^1.82.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Machine Learning",
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./dist/node/extension.js",
+  "browser": "./dist/browser/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "pilotcodi.toggleInlineCompletionTriggerMode",
+        "title": "Toggle Code Completion Trigger Mode (Automatic/Manual)",
+        "category": "PilotCodi"
+      },
+      {
+        "command": "pilotcodi.inlineCompletion.trigger",
+        "title": "Trigger Code Completion Manually",
+        "category": "PilotCodi"
+      },
+      {
+        "command": "pilotcodi.connectToServer",
+        "title": "Connect to Server...",
+        "category": "PilotCodi"
+      },
+      {
+        "command": "pilotcodi.updateToken",
+        "title": "Update Token...",
+        "category": "PilotCodi"
+      },
+      {
+        "command": "pilotcodi.openSettings",
+        "title": "Open Settings",
+        "category": "PilotCodi"
+      },
+      {
+        "command": "pilotcodi.openPilotCodiAgentSettings",
+        "title": "Open PilotCodi Agent Settings",
+        "category": "PilotCodi"
+      },
+      {
+        "command": "pilotcodi.gettingStarted",
+        "title": "Quick Start",
+        "category": "PilotCodi"
+      },
+      {
+        "command": "pilotcodi.openOnlineHelp",
+        "title": "Online Help...",
+        "category": "PilotCodi"
+      },
+      {
+        "command": "pilotcodi.status.resetIgnoredIssues",
+        "title": "Reset Ignored Issues",
+        "category": "PilotCodi"
+      },
+      {
+        "command": "pilotcodi.chat.addRelevantContext",
+        "title": "Add Selection to Chat",
+        "category": "PilotCodi"
+      },
+      {
+        "command": "pilotcodi.chat.addFileContext",
+        "title": "Add File to Chat",
+        "category": "PilotCodi"
+      },
+      {
+        "command": "pilotcodi.chat.explainCodeBlock",
+        "title": "Explain This",
+        "category": "PilotCodi"
+      },
+      {
+        "command": "pilotcodi.chat.fixCodeBlock",
+        "title": "Fix This",
+        "category": "PilotCodi"
+      },
+      {
+        "command": "pilotcodi.chat.codeReviewCodeBlock",
+        "title": "Code Review",
+        "category": "PilotCodi"
+      },
+      {
+        "command": "pilotcodi.chat.generateCodeBlockDoc",
+        "title": "Generate Docs",
+        "category": "PilotCodi"
+      },
+      {
+        "command": "pilotcodi.chat.generateCodeBlockTest",
+        "title": "Generate Tests",
+        "category": "PilotCodi"
+      },
+      {
+        "command": "pilotcodi.chat.generateCommitMessage",
+        "title": "Generate Commit Message",
+        "category": "PilotCodi",
+        "icon": "$(sparkle)"
+      },
+      {
+        "command": "pilotcodi.chat.generateBranchName",
+        "title": "Create Branch with Suggestions",
+        "category": "PilotCodi",
+        "icon": "$(git-branch)"
+      },
+      {
+        "command": "pilotcodi.chat.edit.start",
+        "title": "Start Inline Editing",
+        "category": "PilotCodi"
+      },
+      {
+        "command": "pilotcodi.chat.edit.stop",
+        "title": "Stop Inline Editing",
+        "category": "PilotCodi"
+      },
+      {
+        "command": "pilotcodi.chat.edit.accept",
+        "title": "Accept Changes",
+        "category": "PilotCodi"
+      },
+      {
+        "command": "pilotcodi.chat.edit.discard",
+        "title": "Discard Changes",
+        "category": "PilotCodi"
+      },
+      {
+        "command": "pilotcodi.chat.createPanel",
+        "title": "Open Chat in Editor",
+        "category": "PilotCodi"
+      },
+      {
+        "command": "pilotcodi.chat.navigate.newChat",
+        "title": "New Chat",
+        "icon": "$(add)",
+        "enablement": "pilotcodi.chatSidePanelStatus === 'ready'",
+        "category": "PilotCodi"
+      },
+      {
+        "command": "pilotcodi.chat.navigate.history",
+        "title": "Chat History",
+        "icon": "$(history)",
+        "enablement": "pilotcodi.chatSidePanelStatus === 'ready'",
+        "category": "PilotCodi"
+      },
+      {
+        "command": "pilotcodi.toggleLanguageInlineCompletion",
+        "title": "Enable/Disable Inline Completion for Current Language",
+        "category": "PilotCodi"
+      },
+      {
+        "command": "pilotcodi.terminal.explainSelection",
+        "title": "Explain",
+        "category": "PilotCodi"
+      },
+      {
+        "command": "pilotcodi.terminal.addSelectionToChat",
+        "title": "Add Selection to Chat",
+        "category": "PilotCodi"
+      }
+    ],
+    "submenus": [
+      {
+        "id": "pilotcodi.submenu",
+        "label": "PilotCodi"
+      },
+      {
+        "id": "pilotcodi.terminal.submenu",
+        "label": "PilotCodi"
+      }
+    ],
+    "menus": {
+      "pilotcodi.submenu": [
+        {
+          "command": "pilotcodi.chat.edit.start",
+          "when": "pilotcodi.chatEnabled",
+          "group": "pilotcodi.submenu.0edit@1"
+        },
+        {
+          "command": "pilotcodi.chat.explainCodeBlock",
+          "when": "editorHasSelection && pilotcodi.chatEnabled",
+          "group": "pilotcodi.submenu.1edit@1"
+        },
+        {
+          "command": "pilotcodi.chat.codeReviewCodeBlock",
+          "when": "editorHasSelection && pilotcodi.chatEnabled",
+          "group": "pilotcodi.submenu.1edit@2"
+        },
+        {
+          "command": "pilotcodi.chat.addRelevantContext",
+          "when": "editorHasSelection && pilotcodi.chatEnabled",
+          "group": "pilotcodi.submenu.2chat@1"
+        },
+        {
+          "command": "pilotcodi.chat.addFileContext",
+          "when": "pilotcodi.chatEnabled",
+          "group": "pilotcodi.submenu.2chat@2"
+        }
+      ],
+      "pilotcodi.terminal.submenu": [
+        {
+          "command": "pilotcodi.terminal.explainSelection",
+          "group": "pilotcodi.terminal.action"
+        },
+        {
+          "command": "pilotcodi.terminal.addSelectionToChat",
+          "group": "pilotcodi.terminal.context"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "pilotcodi.inlineCompletion.trigger",
+          "when": "pilotcodi.inlineCompletionTriggerMode === 'manual' && !editorHasSelection && !inlineSuggestionsVisible"
+        },
+        {
+          "command": "pilotcodi.updateToken",
+          "when": "pilotcodi.status === 'unauthorized'"
+        },
+        {
+          "command": "pilotcodi.openPilotCodiAgentSettings",
+          "when": "!isWeb"
+        },
+        {
+          "command": "pilotcodi.chat.explainCodeBlock",
+          "when": "editorHasSelection && pilotcodi.chatEnabled"
+        },
+        {
+          "command": "pilotcodi.chat.fixCodeBlock",
+          "when": "false"
+        },
+        {
+          "command": "pilotcodi.chat.generateCodeBlockDoc",
+          "when": "editorHasSelection && pilotcodi.chatEnabled"
+        },
+        {
+          "command": "pilotcodi.chat.generateCodeBlockTest",
+          "when": "editorHasSelection && pilotcodi.chatEnabled"
+        },
+        {
+          "command": "pilotcodi.chat.generateCommitMessage",
+          "when": "pilotcodi.chatEnabled"
+        },
+        {
+          "command": "pilotcodi.chat.generateBranchName",
+          "when": "pilotcodi.chatEnabled"
+        },
+        {
+          "command": "pilotcodi.chat.edit.start",
+          "when": "pilotcodi.chatEnabled"
+        },
+        {
+          "command": "pilotcodi.chat.edit.stop",
+          "when": "false"
+        },
+        {
+          "command": "pilotcodi.chat.edit.accept",
+          "when": "false"
+        },
+        {
+          "command": "pilotcodi.chat.edit.discard",
+          "when": "false"
+        }
+      ],
+      "editor/context": [
+        {
+          "submenu": "pilotcodi.submenu",
+          "group": "2_pilotcodi"
+        }
+      ],
+      "scm/title": [
+        {
+          "command": "pilotcodi.chat.generateCommitMessage",
+          "when": "pilotcodi.chatEnabled",
+          "group": "navigation@-1"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "pilotcodi.chat.navigate.newChat",
+          "when": "view == pilotcodi.chatView",
+          "group": "navigation@0"
+        },
+        {
+          "command": "pilotcodi.chat.navigate.history",
+          "when": "view == pilotcodi.chatView",
+          "group": "navigation@1"
+        },
+        {
+          "command": "pilotcodi.chat.createPanel",
+          "when": "view == pilotcodi.chatView",
+          "group": "0_new"
+        }
+      ],
+      "terminal/context": [
+        {
+          "submenu": "pilotcodi.terminal.submenu",
+          "group": "2_pilotcodi",
+          "when": "pilotcodi.terminalContextEnabled"
+        }
+      ]
+    },
+    "walkthroughs": [
+      {
+        "id": "gettingStarted",
+        "title": "Getting Started with PilotCodi",
+        "description": "Set up PilotCodi and explore the features.",
+        "steps": [
+          {
+            "id": "setupServer",
+            "title": "Setup PilotCodi Server",
+            "description": "Follow the guide to prepare your PilotCodi server.",
+            "media": {
+              "markdown": "assets/walkthroughs/setupServer.md"
+            }
+          },
+          {
+            "id": "connectToServer",
+            "title": "Connect to Server",
+            "description": "Connect the PilotCodi extension to your server. \n[Connect to Server](command:pilotcodi.connectToServer)",
+            "media": {
+              "markdown": "assets/walkthroughs/connectToServer.md"
+            }
+          },
+          {
+            "id": "codeCompletion",
+            "title": "Code Completion",
+            "description": "Write code more efficiently.",
+            "media": {
+              "markdown": "assets/walkthroughs/codeCompletion.md"
+            }
+          },
+          {
+            "id": "chat",
+            "title": "Chat",
+            "description": "Ask any coding questions. \n[Start Chat](command:pilotcodi.chatView.focus)",
+            "media": {
+              "markdown": "assets/walkthroughs/chat.md"
+            }
+          },
+          {
+            "id": "commands",
+            "title": "Commands",
+            "description": "Explore all [PilotCodi Commands](command:workbench.action.quickOpen?%5B%22%3EPilotCodi%22%5D). \n[PilotCodi Command Palette](command:pilotcodi.commandPalette.trigger)",
+            "media": {
+              "markdown": "assets/walkthroughs/commands.md"
+            }
+          },
+          {
+            "id": "keybindings",
+            "title": "Keyboard Shortcuts",
+            "description": "PilotCodi provides a set of default keyboard shortcuts, but you can also customize them. \n[Keyboard Shortcuts](command:pilotcodi.openKeybindings)",
+            "media": {
+              "markdown": "assets/walkthroughs/keybindings.md"
+            }
+          }
+        ]
+      }
+    ],
+    "configuration": [
+      {
+        "title": "PilotCodi",
+        "properties": {
+          "pilotcodi.endpoint": {
+            "type": "string",
+            "default": "http://localhost:8080",
+            "pattern": "(^$)|(^https?:\\/\\/\\S+$)",
+            "patternErrorMessage": "Please enter a valid HTTP or HTTPS URL.",
+            "markdownDescription": "Please use the command [Connect to Server](command:pilotcodi.connectToServer) to specify the endpoint of the PilotCodi server."
+          },
+          "pilotcodi.keybindings": {
+            "type": "string",
+            "enum": [
+              "vscode-style",
+              "pilotcodi-style"
+            ],
+            "default": "vscode-style",
+            "markdownDescription": "Select the keybinding profile to accept inline completion. You can also customize it in [Keyboard Shortcuts](command:pilotcodi.openKeybindings). \n | | Next Line | Full Completion | Next Word | \n |:---|:---|:---|:---| \n | _vscode-style_ | - | `Tab` | `Ctrl + RightArrow` (macOS: `Cmd + RightArrow`) | \n | _pilotcodi-style_  _(experimental)_ | `Tab` | `Ctrl + Tab` | `Ctrl + RightArrow` (macOS: `Cmd + RightArrow`) | \n"
+          },
+          "pilotcodi.config.telemetry": {
+            "type": "boolean",
+            "default": false,
+            "markdownDescription": "**Disable anonymous usage tracking**  \nPilotCodi collects aggregated anonymous usage data and sends it to the PilotCodi team to help improve our products.  \nYour code, generated completions, or any identifying information is never tracked or transmitted.  \nFor more details on data collection, please check our [online documentation](https://pilotcodi.pilotcodiml.com/docs/extensions/configurations#usage-collection)."
+          },
+          "pilotcodi.settings.advanced": {
+            "default": {},
+            "properties": {
+              "inlineCompletion.triggerMode": {
+                "type": "string",
+                "enum": [
+                  "automatic",
+                  "manual"
+                ],
+                "default": "automatic",
+                "description": "Select the code completion trigger mode.",
+                "enumDescriptions": [
+                  "Automatic trigger when you stop typing",
+                  "Manual trigger by pressing `Alt + \\`"
+                ]
+              },
+              "inlineCompletion.disabledLanguages": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "default": [],
+                "description": "List of language IDs for which code completion should be disabled. Use the 'Toggle Single Language Inline Completion' command to easily enable or disable completion for the current language."
+              },
+              "chatEdit.history": {
+                "type": "integer",
+                "default": 20,
+                "description": "The maximum number of recently used commands to keep. Set to 0 to disable recording."
+              }
+            }
+          }
+        }
+      }
+    ],
+    "keybindings": [
+      {
+        "key": "alt+\\",
+        "command": "pilotcodi.inlineCompletion.trigger",
+        "when": "pilotcodi.inlineCompletionTriggerMode === 'manual' && editorTextFocus && !editorHasSelection && !inlineSuggestionsVisible"
+      },
+      {
+        "command": "pilotcodi.inlineCompletion.accept",
+        "key": "tab",
+        "when": "config.pilotcodi.keybindings === 'vscode-style' && inlineSuggestionVisible && !editorReadonly && !suggestWidgetVisible && !editorHoverFocused && !editorTabMovesFocus && inlineSuggestionHasIndentationLessThanTabSize"
+      },
+      {
+        "command": "pilotcodi.inlineCompletion.acceptNextWord",
+        "key": "ctrl+right",
+        "mac": "cmd+right",
+        "when": "config.pilotcodi.keybindings === 'vscode-style' && inlineSuggestionVisible && !editorReadonly && !suggestWidgetVisible"
+      },
+      {
+        "command": "pilotcodi.inlineCompletion.accept",
+        "key": "ctrl+tab",
+        "mac": "ctrl+tab",
+        "when": "config.pilotcodi.keybindings === 'pilotcodi-style' && inlineSuggestionVisible && !editorReadonly && !suggestWidgetVisible"
+      },
+      {
+        "command": "pilotcodi.inlineCompletion.acceptNextWord",
+        "key": "ctrl+right",
+        "mac": "cmd+right",
+        "when": "config.pilotcodi.keybindings === 'pilotcodi-style' && inlineSuggestionVisible && !editorReadonly && !suggestWidgetVisible"
+      },
+      {
+        "command": "pilotcodi.inlineCompletion.acceptNextLine",
+        "key": "tab",
+        "when": "config.pilotcodi.keybindings === 'pilotcodi-style' && inlineSuggestionVisible && !editorReadonly && !suggestWidgetVisible && !editorHoverFocused && !editorTabMovesFocus"
+      },
+      {
+        "command": "pilotcodi.inlineCompletion.dismiss",
+        "key": "escape",
+        "when": "inlineSuggestionVisible"
+      },
+      {
+        "command": "pilotcodi.chat.edit.start",
+        "key": "ctrl+i",
+        "mac": "cmd+i",
+        "when": "pilotcodi.chatEnabled && editorTextFocus && !editorReadonly"
+      },
+      {
+        "command": "pilotcodi.chat.edit.stop",
+        "key": "escape",
+        "when": "pilotcodi.chatEditInProgress && editorTextFocus && !editorReadonly"
+      },
+      {
+        "command": "pilotcodi.chat.edit.accept",
+        "key": "ctrl+enter",
+        "mac": "cmd+enter",
+        "when": "pilotcodi.chatEditResolving && !pilotcodi.chatEditInProgress && editorTextFocus && !editorReadonly"
+      },
+      {
+        "command": "pilotcodi.chat.edit.discard",
+        "key": "escape",
+        "when": "pilotcodi.chatEditResolving && !pilotcodi.chatEditInProgress && editorTextFocus && !editorReadonly"
+      },
+      {
+        "command": "pilotcodi.chat.addRelevantContext",
+        "key": "ctrl+l",
+        "mac": "cmd+l",
+        "when": "pilotcodi.chatEnabled && editorTextFocus && editorHasSelection && pilotcodi.chatSidePanelVisible"
+      },
+      {
+        "command": "pilotcodi.chat.toggleFocus",
+        "key": "ctrl+l",
+        "mac": "cmd+l",
+        "when": "(pilotcodi.chatEnabled && editorTextFocus && !pilotcodi.chatSidePanelVisible) || ((!editorTextFocus || (editorTextFocus && !editorHasSelection)) && pilotcodi.chatSidePanelVisible)"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "pilotcodiChatView",
+          "title": "PilotCodi",
+          "icon": "assets/chat.svg"
+        }
+      ]
+    },
+    "views": {
+      "pilotcodiChatView": [
+        {
+          "type": "webview",
+          "id": "pilotcodi.chatView",
+          "name": "PilotCodi",
+          "visibility": "visible"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "build": "tsc -p ./tsconfig.build.json --noEmit && tsup --minify",
+    "watch": "tsup --watch",
+    "vscode:dev": "pnpm run dev:vscode",
+    "dev:vscode": "pnpm run watch --platform node --env.LAUNCH_ON_SUCCESS 1",
+    "dev:browser": "pnpm run watch --platform browser --env.LAUNCH_ON_SUCCESS 1",
+    "lint": "eslint --ext .ts ./src && prettier --check .",
+    "lint:fix": "eslint --fix --ext .ts ./src && prettier --write .",
+    "vscode:prepackage": "turbo build --force",
+    "vscode:package": "vsce package --no-dependencies",
+    "vscode:prepublish": "turbo build --force",
+    "vscode:publish": "vsce publish --no-dependencies",
+    "vscode:publish-prerelease": "vsce publish --no-dependencies --pre-release",
+    "ovsx:publish": "ovsx publish --no-dependencies --pat $OVSX_PAT",
+    "ovsx:publish-prerelease": "ovsx publish --no-dependencies --pre-release --pat $OVSX_PAT",
+    "package": "pnpm run vscode:package",
+    "publish": "pnpm run vscode:publish && pnpm run ovsx:publish",
+    "publish-prerelease": "pnpm run vscode:publish-prerelease && pnpm run ovsx:publish-prerelease",
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "@types/dedent": "^0.7.2",
+    "@types/chai": "^4.3.5",
+    "@types/deep-equal": "^1.0.4",
+    "@types/diff": "^5.2.1",
+    "@types/fs-extra": "^11.0.1",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "18.x",
+    "@types/object-hash": "^3.0.0",
+    "@types/semver": "^7.5.8",
+    "@types/uuid": "^9.0.0",
+    "@types/vscode": "^1.82.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.1",
+    "@typescript-eslint/parser": "^6.13.1",
+    "@vscode/test-electron": "^2.1.5",
+    "@vscode/test-web": "^0.0.63",
+    "@vscode/vsce": "^2.15.0",
+    "assert": "^2.0.0",
+    "debounce": "^2.2.0",
+    "chai": "^4.3.11",
+    "dedent": "^0.7.0",
+    "deep-equal": "^2.2.1",
+    "diff": "^5.2.0",
+    "esbuild-plugin-copy": "^2.1.1",
+    "esbuild-plugin-polyfill-node": "^0.3.0",
+    "eslint": "^8.55.0",
+    "eslint-config-prettier": "^9.0.0",
+    "fs-extra": "^11.1.1",
+    "get-installed-path": "^4.0.8",
+    "mocha": "^10.2.0",
+    "object-hash": "^3.0.0",
+    "ovsx": "^0.9.5",
+    "prettier": "^3.0.0",
+    "semver": "^7.6.0",
+    "pilotcodi-agent": "workspace:*",
+    "pilotcodi-chat-panel": "workspace:*",
+    "pilotcodi-threads": "workspace:*",
+    "tsc-watch": "^6.2.0",
+    "tsup": "^8.0.2",
+    "typescript": "^5.3.2",
+    "uuid": "^9.0.0",
+    "vscode-languageclient": "^9.0.1"
+  }
+}

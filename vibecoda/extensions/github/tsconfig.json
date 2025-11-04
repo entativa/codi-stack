@@ -1,0 +1,21 @@
+{
+	"extends": "../tsconfig.base.json",
+	"compilerOptions": {
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
+		"outDir": "./out",
+		"skipLibCheck": true,
+		"allowSyntheticDefaultImports": false,
+		"typeRoots": [
+			"./node_modules/@types"
+		]
+	},
+	"include": [
+		"src/**/*",
+		"../../src/vibecoda-dts/vibecoda.d.ts",
+		"../../src/vibecoda-dts/vibecoda.proposed.canonicalUriProvider.d.ts",
+		"../../src/vibecoda-dts/vibecoda.proposed.scmHistoryProvider.d.ts",
+		"../../src/vibecoda-dts/vibecoda.proposed.shareProvider.d.ts",
+		"../../src/vibecoda-dts/vibecoda.proposed.timeline.d.ts"
+	]
+}

@@ -1,0 +1,21 @@
+{
+	"extends": "../tsconfig.base.json",
+	"compilerOptions": {
+		"outDir": "./out",
+		"types": [
+			"node"
+		],
+		"typeRoots": [
+			"./node_modules/@types"
+		]
+	},
+	"include": [
+		"src/**/*",
+		"../../src/vibecoda-dts/vibecoda.d.ts",
+		"../../src/vibecoda-dts/vibecoda.proposed.chatOutputRenderer.d.ts",
+		"../../src/vibecoda-dts/vibecoda.proposed.chatParticipantAdditions.d.ts",
+		"../../src/vibecoda-dts/vibecoda.proposed.languageModelThinkingPart.d.ts",
+		"../../src/vibecoda-dts/vibecoda.proposed.chatParticipantPrivate.d.ts",
+		"../../src/vibecoda-dts/vibecoda.proposed.languageModelProxy.d.ts"
+	]
+}

@@ -1,0 +1,16 @@
+{
+	"extends": "../../../extensions/tsconfig.base.json",
+	"compilerOptions": {
+		"outDir": "./out",
+		"types": [
+			"node",
+			"mocha",
+		]
+	},
+	"include": [
+		"src/**/*",
+		"../../../src/vibecoda-dts/vibecoda.d.ts",
+		"../../../src/vibecoda-dts/vibecoda.proposed.testObserver.d.ts",
+		"../../../src/vibecoda-dts/vibecoda.proposed.testRelatedCode.d.ts"
+	]
+}

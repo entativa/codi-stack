@@ -1,0 +1,18 @@
+{
+	"extends": "../tsconfig.base.json",
+	"compilerOptions": {
+		"outDir": "./out",
+		"typeRoots": [
+			"./node_modules/@types"
+		],
+		"lib": [
+			"WebWorker"
+		]
+	},
+	"include": [
+		"src/**/*",
+		"../../src/vibecoda-dts/vibecoda.d.ts",
+		"../../src/vibecoda-dts/vibecoda.proposed.authIssuers.d.ts",
+		"../../src/vibecoda-dts/vibecoda.proposed.authProviderSpecific.d.ts"
+	]
+}

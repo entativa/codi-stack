@@ -1,0 +1,7 @@
+{
+	"extends": "./tsconfig.vibecoda-dts.json",
+	"include": [
+		"vibecoda-dts/vibecoda.d.ts",
+		"vibecoda-dts/vibecoda.proposed.*.d.ts",
+	]
+}

@@ -1,0 +1,26 @@
+{
+  "name": "theme-monokai-dimmed",
+  "displayName": "%displayName%",
+  "description": "%description%",
+  "version": "1.0.0",
+  "publisher": "vibecoda",
+  "license": "MIT",
+  "engines": {
+    "vibecoda": "*"
+  },
+  "categories": ["Themes"],
+  "contributes": {
+    "themes": [
+      {
+        "id": "Monokai Dimmed",
+        "label": "%themeLabel%",
+        "uiTheme": "vs-dark",
+        "path": "./themes/dimmed-monokai-color-theme.json"
+      }
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/microsoft/vibecoda.git"
+  }
+}

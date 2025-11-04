@@ -1,0 +1,15 @@
+{
+	"extends": "../tsconfig.base.json",
+	"compilerOptions": {
+		"outDir": "./out",
+		"typeRoots": [
+			"./node_modules/@types"
+		],
+		"skipLibCheck": true
+	},
+	"include": [
+		"src/**/*",
+		"../../src/vibecoda-dts/vibecoda.d.ts",
+		"../../src/vibecoda-dts/vibecoda.proposed.*.d.ts"
+	]
+}

@@ -1,0 +1,19 @@
+{
+	"extends": "../tsconfig.base.json",
+	"compilerOptions": {
+		"outDir": "./out",
+		"noFallthroughCasesInSwitch": true,
+		"noUnusedLocals": false,
+		"skipLibCheck": true,
+		"lib": [
+			"WebWorker"
+		]
+	},
+	"include": [
+		"src/**/*",
+		"../../src/vibecoda-dts/vibecoda.d.ts",
+		"../../src/vibecoda-dts/vibecoda.proposed.nativeWindowHandle.d.ts",
+		"../../src/vibecoda-dts/vibecoda.proposed.authIssuers.d.ts",
+		"../../src/vibecoda-dts/vibecoda.proposed.authenticationChallenges.d.ts"
+	]
+}

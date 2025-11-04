@@ -1,0 +1,32 @@
+{
+  "name": "vibecoda-html-languageserver",
+  "description": "HTML language server",
+  "version": "1.0.0",
+  "author": "Microsoft Corporation",
+  "license": "MIT",
+  "engines": {
+    "node": "*"
+  },
+  "main": "./out/node/htmlServerMain",
+  "dependencies": {
+    "@vibecoda/l10n": "^0.0.18",
+    "vibecoda-css-languageservice": "^6.3.8",
+    "vibecoda-html-languageservice": "^5.5.2",
+    "vibecoda-languageserver": "^10.0.0-next.14",
+    "vibecoda-languageserver-textdocument": "^1.0.12",
+    "vibecoda-uri": "^3.1.0"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "22.x"
+  },
+  "scripts": {
+    "compile": "npx gulp compile-extension:html-language-features-server",
+    "watch": "npx gulp watch-extension:html-language-features-server",
+    "install-service-next": "npm install vibecoda-css-languageservice && npm install vibecoda-html-languageservice",
+    "install-service-local": "npm install vibecoda-css-languageservice && npm install vibecoda-html-languageservice",
+    "install-server-next": "npm install vibecoda-languageserver@next",
+    "install-server-local": "npm install vibecoda-languageserver",
+    "test": "npm run compile && node ./test/index.js"
+  }
+}

@@ -1,0 +1,11 @@
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vibecoda-dark img[src$=\#gh-light-mode-only],
+.vibecoda-light img[src$=\#gh-dark-mode-only],
+.vibecoda-high-contrast:not(.vibecoda-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vibecoda-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}

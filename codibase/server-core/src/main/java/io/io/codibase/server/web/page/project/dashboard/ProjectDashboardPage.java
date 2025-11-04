@@ -1,0 +1,47 @@
+package io.codibase.server.web.page.project.dashboard;
+
+import io.codibase.server.web.component.link.ViewStateAwarePageLink;
+import io.codibase.server.web.page.project.packs.ProjectPacksPage;
+import org.apache.wicket.Component;
+import org.apache.wicket.RestartResponseException;
+import org.apache.wicket.core.request.handler.PageProvider;
+import org.apache.wicket.core.request.handler.RenderPageRequestHandler.RedirectPolicy;
+import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
+
+import io.codibase.server.model.Project;
+import io.codibase.server.security.SecurityUtils;
+import io.codibase.server.web.page.project.ProjectPage;
+import io.codibase.server.web.page.project.blob.ProjectBlobPage;
+import io.codibase.server.web.page.project.children.ProjectChildrenPage;
+import io.codibase.server.web.page.project.issues.list.ProjectIssueListPage;
+
+public class ProjectDashboardPage extends ProjectPage {
+
+	public ProjectDashboardPage(PageParameters params) {
+		super(params);
+		
+		PageProvider pageProvider;
+		if (getProject().isCodeManagement() && SecurityUtils.canReadCode(getProject()))
+			pageProvider = new PageProvider(ProjectBlobPage.class, ProjectBlobPage.paramsOf(getProject()));
+		else if (getProject().isIssueManagement()) 
+			pageProvider = new PageProvider(ProjectIssueListPage.class, ProjectIssueListPage.paramsOf(getProject(), 0));
+		else if (getProject().isPackManagement())
+			pageProvider = new PageProvider(ProjectPacksPage.class, ProjectPacksPage.paramsOf(getProject(), 0));
+		else
+			pageProvider = new PageProvider(ProjectChildrenPage.class, ProjectChildrenPage.paramsOf(getProject()));
+		throw new RestartResponseException(pageProvider, RedirectPolicy.NEVER_REDIRECT);
+	}
+
+	@Override
+	protected Component newProjectTitle(String componentId) {
+		return new Label(componentId, "Dashboard");
+	}
+
+	@Override
+	protected BookmarkablePageLink<Void> navToProject(String componentId, Project project) {
+		return new ViewStateAwarePageLink<>(componentId, ProjectDashboardPage.class, ProjectDashboardPage.paramsOf(project.getId()));
+	}
+	
+}

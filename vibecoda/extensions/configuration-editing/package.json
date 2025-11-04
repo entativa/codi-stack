@@ -1,0 +1,182 @@
+{
+  "name": "configuration-editing",
+  "displayName": "%displayName%",
+  "description": "%description%",
+  "version": "1.0.0",
+  "publisher": "vibecoda",
+  "license": "MIT",
+  "engines": {
+    "vibecoda": "^1.0.0"
+  },
+  "icon": "images/icon.png",
+  "activationEvents": [
+    "onProfile",
+    "onProfile:github",
+    "onLanguage:json",
+    "onLanguage:jsonc"
+  ],
+  "enabledApiProposals": [
+    "profileContentHandlers"
+  ],
+  "main": "./out/configurationEditingMain",
+  "browser": "./dist/browser/configurationEditingMain",
+  "scripts": {
+    "compile": "gulp compile-extension:configuration-editing",
+    "watch": "gulp watch-extension:configuration-editing"
+  },
+  "dependencies": {
+    "@octokit/rest": "^21.1.1",
+    "jsonc-parser": "^3.2.0",
+    "tunnel": "^0.0.6"
+  },
+  "capabilities": {
+    "virtualWorkspaces": true,
+    "untrustedWorkspaces": {
+      "supported": true
+    }
+  },
+  "contributes": {
+    "languages": [
+      {
+        "id": "jsonc",
+        "extensions": [
+          ".code-workspace",
+          "language-configuration.json",
+          "icon-theme.json",
+          "color-theme.json"
+        ],
+        "filenames": [
+          "settings.json",
+          "launch.json",
+          "tasks.json",
+          "mcp.json",
+          "keybindings.json",
+          "extensions.json",
+          "argv.json",
+          "profiles.json",
+          "devcontainer.json",
+          ".devcontainer.json"
+        ]
+      },
+      {
+        "id": "json",
+        "extensions": [
+          ".code-profile"
+        ]
+      }
+    ],
+    "jsonValidation": [
+      {
+        "fileMatch": "vibecoda://defaultsettings/keybindings.json",
+        "url": "vibecoda://schemas/keybindings"
+      },
+      {
+        "fileMatch": "%APP_SETTINGS_HOME%/keybindings.json",
+        "url": "vibecoda://schemas/keybindings"
+      },
+      {
+        "fileMatch": "%APP_SETTINGS_HOME%/profiles/*/keybindings.json",
+        "url": "vibecoda://schemas/keybindings"
+      },
+      {
+        "fileMatch": "vibecoda://defaultsettings/*.json",
+        "url": "vibecoda://schemas/settings/default"
+      },
+      {
+        "fileMatch": "%APP_SETTINGS_HOME%/settings.json",
+        "url": "vibecoda://schemas/settings/user"
+      },
+      {
+        "fileMatch": "%APP_SETTINGS_HOME%/profiles/*/settings.json",
+        "url": "vibecoda://schemas/settings/profile"
+      },
+      {
+        "fileMatch": "%MACHINE_SETTINGS_HOME%/settings.json",
+        "url": "vibecoda://schemas/settings/machine"
+      },
+      {
+        "fileMatch": "%APP_WORKSPACES_HOME%/*/workspace.json",
+        "url": "vibecoda://schemas/workspaceConfig"
+      },
+      {
+        "fileMatch": "**/*.code-workspace",
+        "url": "vibecoda://schemas/workspaceConfig"
+      },
+      {
+        "fileMatch": "**/argv.json",
+        "url": "vibecoda://schemas/argv"
+      },
+      {
+        "fileMatch": "/.vibecoda/settings.json",
+        "url": "vibecoda://schemas/settings/folder"
+      },
+      {
+        "fileMatch": "/.vibecoda/launch.json",
+        "url": "vibecoda://schemas/launch"
+      },
+      {
+        "fileMatch": "/.vibecoda/tasks.json",
+        "url": "vibecoda://schemas/tasks"
+      },
+      {
+        "fileMatch": "/.vibecoda/mcp.json",
+        "url": "vibecoda://schemas/mcp"
+      },
+      {
+        "fileMatch": "%APP_SETTINGS_HOME%/tasks.json",
+        "url": "vibecoda://schemas/tasks"
+      },
+      {
+        "fileMatch": "%APP_SETTINGS_HOME%/snippets/*.json",
+        "url": "vibecoda://schemas/snippets"
+      },
+      {
+        "fileMatch": "%APP_SETTINGS_HOME%/prompts/*.toolsets.jsonc",
+        "url": "vibecoda://schemas/toolsets"
+      },
+      {
+        "fileMatch": "%APP_SETTINGS_HOME%/profiles/*/snippets/.json",
+        "url": "vibecoda://schemas/snippets"
+      },
+      {
+        "fileMatch": "%APP_SETTINGS_HOME%/sync/snippets/preview/*.json",
+        "url": "vibecoda://schemas/snippets"
+      },
+      {
+        "fileMatch": "**/*.code-snippets",
+        "url": "vibecoda://schemas/global-snippets"
+      },
+      {
+        "fileMatch": "/.vibecoda/extensions.json",
+        "url": "vibecoda://schemas/extensions"
+      },
+      {
+        "fileMatch": "devcontainer.json",
+        "url": "https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainer.schema.json"
+      },
+      {
+        "fileMatch": ".devcontainer.json",
+        "url": "https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainer.schema.json"
+      },
+      {
+        "fileMatch": "%APP_SETTINGS_HOME%/globalStorage/ms-vibecoda-remote.remote-containers/nameConfigs/*.json",
+        "url": "./schemas/attachContainer.schema.json"
+      },
+      {
+        "fileMatch": "%APP_SETTINGS_HOME%/globalStorage/ms-vibecoda-remote.remote-containers/imageConfigs/*.json",
+        "url": "./schemas/attachContainer.schema.json"
+      },
+      {
+        "fileMatch": "**/quality/*/product.json",
+        "url": "vibecoda://schemas/vibecoda-product"
+      }
+    ]
+  },
+  "devDependencies": {
+    "@types/node": "22.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/microsoft/vibecoda.git"
+  }
+}

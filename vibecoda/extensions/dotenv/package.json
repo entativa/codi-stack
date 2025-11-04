@@ -1,0 +1,48 @@
+{
+  "name": "dotenv",
+  "displayName": "%displayName%",
+  "description": "%description%",
+  "version": "1.0.0",
+  "publisher": "vibecoda",
+  "license": "MIT",
+  "engines": {
+    "vibecoda": "*"
+  },
+  "scripts": {
+    "update-grammar": "node ../node_modules/vibecoda-grammar-updater/bin dotenv-org/dotenv-vibecoda syntaxes/dotenv.tmLanguage.json ./syntaxes/dotenv.tmLanguage.json"
+  },
+  "categories": ["Programming Languages"],
+  "contributes": {
+    "languages": [
+      {
+        "id": "dotenv",
+        "extensions": [
+          ".env"
+        ],
+        "filenames": [
+          ".env",
+          ".flaskenv",
+          "user-dirs.dirs"
+        ],
+        "filenamePatterns": [
+          ".env.*"
+        ],
+        "aliases": [
+          "Dotenv"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "dotenv",
+        "scopeName": "source.dotenv",
+        "path": "./syntaxes/dotenv.tmLanguage.json"
+      }
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/microsoft/vibecoda.git"
+  }
+}

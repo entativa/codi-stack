@@ -1,0 +1,177 @@
+{
+  "name": "vibecoda-test-resolver",
+  "description": "Test resolver for Vibecoda",
+  "version": "0.0.1",
+  "publisher": "vibecoda",
+  "license": "MIT",
+  "enabledApiProposals": [
+    "resolvers",
+    "tunnels"
+  ],
+  "private": true,
+  "engines": {
+    "vibecoda": "^1.25.0"
+  },
+  "icon": "media/icon.png",
+  "extensionKind": [
+    "ui"
+  ],
+  "scripts": {
+    "compile": "node ./node_modules/vibecoda/bin/compile -watch -p ./",
+    "vibecoda:prepublish": "node ../../node_modules/gulp/bin/gulp.js --gulpfile ../../build/gulpfile.extensions.js compile-extension:vibecoda-test-resolver"
+  },
+  "activationEvents": [
+    "onResolveRemoteAuthority:test",
+    "onCommand:vibecoda-testresolver.newWindow",
+    "onCommand:vibecoda-testresolver.currentWindow",
+    "onCommand:vibecoda-testresolver.newWindowWithError",
+    "onCommand:vibecoda-testresolver.showLog",
+    "onCommand:vibecoda-testresolver.openTunnel",
+    "onCommand:vibecoda-testresolver.startRemoteServer",
+    "onCommand:vibecoda-testresolver.toggleConnectionPause"
+  ],
+  "main": "./out/extension",
+  "browser": "./dist/browser/testResolverMain",
+  "devDependencies": {
+    "@types/node": "22.x"
+  },
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
+    },
+    "virtualWorkspaces": true
+  },
+  "contributes": {
+    "resourceLabelFormatters": [
+      {
+        "scheme": "vibecoda-remote",
+        "authority": "test+*",
+        "formatting": {
+          "label": "${path}",
+          "separator": "/",
+          "tildify": true,
+          "workspaceSuffix": "TestResolver",
+          "workspaceTooltip": "Remote running on the same machine"
+        }
+      }
+    ],
+    "commands": [
+      {
+        "title": "New TestResolver Window",
+        "category": "Remote-TestResolver",
+        "command": "vibecoda-testresolver.newWindow"
+      },
+      {
+        "title": "Connect to TestResolver in Current Window",
+        "category": "Remote-TestResolver",
+        "command": "vibecoda-testresolver.currentWindow"
+      },
+      {
+        "title": "Connect to TestResolver in Current Window with Managed Connection",
+        "category": "Remote-TestResolver",
+        "command": "vibecoda-testresolver.currentWindowManaged"
+      },
+      {
+        "title": "Show TestResolver Log",
+        "category": "Remote-TestResolver",
+        "command": "vibecoda-testresolver.showLog"
+      },
+      {
+        "title": "Kill Remote Server and Trigger Handled Error",
+        "category": "Remote-TestResolver",
+        "command": "vibecoda-testresolver.killServerAndTriggerHandledError"
+      },
+      {
+        "title": "Open Tunnel...",
+        "category": "Remote-TestResolver",
+        "command": "vibecoda-testresolver.openTunnel"
+      },
+      {
+        "title": "Open a Remote Port...",
+        "category": "Remote-TestResolver",
+        "command": "vibecoda-testresolver.startRemoteServer"
+      },
+      {
+        "title": "Pause Connection (Test Reconnect)",
+        "category": "Remote-TestResolver",
+        "command": "vibecoda-testresolver.toggleConnectionPause"
+      },
+      {
+        "title": "Slowdown Connection (Test Slow Down Indicator)",
+        "category": "Remote-TestResolver",
+        "command": "vibecoda-testresolver.toggleConnectionSlowdown"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "vibecoda-testresolver.openTunnel",
+          "when": "remoteName == test"
+        },
+        {
+          "command": "vibecoda-testresolver.startRemoteServer",
+          "when": "remoteName == test"
+        },
+        {
+          "command": "vibecoda-testresolver.toggleConnectionPause",
+          "when": "remoteName == test"
+        }
+      ],
+      "statusBar/remoteIndicator": [
+        {
+          "command": "vibecoda-testresolver.newWindow",
+          "when": "!remoteName && !virtualWorkspace",
+          "group": "remote_90_test_1_local@2"
+        },
+        {
+          "command": "vibecoda-testresolver.showLog",
+          "when": "remoteName == test",
+          "group": "remote_90_test_1_open@3"
+        },
+        {
+          "command": "vibecoda-testresolver.newWindow",
+          "when": "remoteName == test",
+          "group": "remote_90_test_1_open@1"
+        },
+        {
+          "command": "vibecoda-testresolver.openTunnel",
+          "when": "remoteName == test",
+          "group": "remote_90_test_2_more@4"
+        },
+        {
+          "command": "vibecoda-testresolver.startRemoteServer",
+          "when": "remoteName == test",
+          "group": "remote_90_test_2_more@5"
+        },
+        {
+          "command": "vibecoda-testresolver.toggleConnectionPause",
+          "when": "remoteName == test",
+          "group": "remote_90_test_2_more@6"
+        }
+      ]
+    },
+    "configuration": {
+      "properties": {
+        "testresolver.startupDelay": {
+          "description": "If set, the resolver will delay for the given amount of seconds. Use ths setting for testing a slow resolver",
+          "type": "number",
+          "default": 0
+        },
+        "testresolver.startupError": {
+          "description": "If set, the resolver will fail. Use ths setting for testing the failure of a resolver.",
+          "type": "boolean",
+          "default": false
+        },
+        "testresolver.supportPublicPorts": {
+          "description": "If set, the test resolver tunnel factory will support mock public ports. Forwarded ports will not actually be public. Requires reload.",
+          "type": "boolean",
+          "default": false
+        }
+      }
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/microsoft/vibecoda.git"
+  }
+}

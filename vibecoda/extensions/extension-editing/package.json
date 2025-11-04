@@ -1,0 +1,76 @@
+{
+  "name": "extension-editing",
+  "displayName": "%displayName%",
+  "description": "%description%",
+  "version": "1.0.0",
+  "publisher": "vibecoda",
+  "license": "MIT",
+  "engines": {
+    "vibecoda": "^1.4.0"
+  },
+  "icon": "images/icon.png",
+  "activationEvents": [
+    "onLanguage:json",
+    "onLanguage:markdown"
+  ],
+  "main": "./out/extensionEditingMain",
+  "browser": "./dist/browser/extensionEditingBrowserMain",
+  "capabilities": {
+    "virtualWorkspaces": true,
+    "untrustedWorkspaces": {
+      "supported": true
+    }
+  },
+  "scripts": {
+    "compile": "gulp compile-extension:extension-editing",
+    "watch": "gulp watch-extension:extension-editing"
+  },
+  "dependencies": {
+    "jsonc-parser": "^3.2.0",
+    "markdown-it": "^12.3.2",
+    "parse5": "^3.0.2"
+  },
+  "contributes": {
+    "jsonValidation": [
+      {
+        "fileMatch": "package.json",
+        "url": "vibecoda://schemas/vibecoda-extensions"
+      },
+      {
+        "fileMatch": "*language-configuration.json",
+        "url": "vibecoda://schemas/language-configuration"
+      },
+      {
+        "fileMatch": [
+          "*icon-theme.json",
+          "!*product-icon-theme.json"
+        ],
+        "url": "vibecoda://schemas/icon-theme"
+      },
+      {
+        "fileMatch": "*product-icon-theme.json",
+        "url": "vibecoda://schemas/product-icon-theme"
+      },
+      {
+        "fileMatch": "*color-theme.json",
+        "url": "vibecoda://schemas/color-theme"
+      }
+    ],
+    "languages": [
+      {
+        "id": "ignore",
+        "filenames": [
+          ".vibecodaignore"
+        ]
+      }
+    ]
+  },
+  "devDependencies": {
+    "@types/markdown-it": "0.0.2",
+    "@types/node": "22.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/microsoft/vibecoda.git"
+  }
+}

@@ -1,0 +1,70 @@
+package io.codibase.server.plugin.imports.youtrack;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import io.codibase.server.annotation.Editable;
+
+@Editable
+public class ImportOption implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	private List<IssueStateMapping> issueStateMappings = new ArrayList<>();
+	
+	private List<IssueFieldMapping> issueFieldMappings = new ArrayList<>();
+	
+	private List<IssueTagMapping> issueTagMappings = new ArrayList<>();
+	
+	private List<IssueLinkMapping> issueLinkMappings = new ArrayList<>();
+	
+	@Editable(order=200, description="Specify how to map YouTrack issue state to CodiBase issue state. "
+			+ "Unmapped states will use the initial state in CodiBase.<br>"
+			+ "<b>NOTE: </b> You may customize CodiBase issue states in case there is no appropriate option here")
+	public List<IssueStateMapping> getIssueStateMappings() {
+		return issueStateMappings;
+	}
+
+	public void setIssueStateMappings(List<IssueStateMapping> issueStateMappings) {
+		this.issueStateMappings = issueStateMappings;
+	}
+
+	@Editable(order=300, description="Specify how to map YouTrack issue fields to CodiBase. Unmapped fields will "
+			+ "be reflected in issue description.<br>"
+			+ "<b>Note: </b>"
+			+ "<ul>"
+			+ "<li>Enum field needs to be mapped in form of <tt>&lt;Field Name&gt;::&lt;Field Value&gt;</tt>, "
+			+ "for instance <tt>Priority::Critical</tt>"
+			+ "<li>You may customize CodiBase issue fields in case there is no appropriate option here"
+			+ "</ul>")
+	public List<IssueFieldMapping> getIssueFieldMappings() {
+		return issueFieldMappings;
+	}
+
+	public void setIssueFieldMappings(List<IssueFieldMapping> issueFieldMappings) {
+		this.issueFieldMappings = issueFieldMappings;
+	}
+
+	@Editable(order=300, description="Specify how to map YouTrack issue tags to CodiBase issue custom "
+			+ "fields.<br>"
+			+ "<b>NOTE: </b> You may customize CodiBase issue fields in case there is no appropriate option here")
+	public List<IssueTagMapping> getIssueTagMappings() {
+		return issueTagMappings;
+	}
+
+	public void setIssueTagMappings(List<IssueTagMapping> issueTagMappings) {
+		this.issueTagMappings = issueTagMappings;
+	}
+
+	@Editable(order=400, description="Specify how to map YouTrack issue links to CodiBase issue links.<br>"
+			+ "<b>NOTE: </b> You may customize CodiBase issue links in case there is no appropriate option here")
+	public List<IssueLinkMapping> getIssueLinkMappings() {
+		return issueLinkMappings;
+	}
+
+	public void setIssueLinkMappings(List<IssueLinkMapping> issueLinkMappings) {
+		this.issueLinkMappings = issueLinkMappings;
+	}
+
+}

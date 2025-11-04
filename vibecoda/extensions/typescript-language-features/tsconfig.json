@@ -1,0 +1,22 @@
+{
+	"extends": "../tsconfig.base.json",
+	"compilerOptions": {
+		"outDir": "./out",
+		"typeRoots": [
+			"./node_modules/@types"
+		],
+		"esModuleInterop": true,
+		"types": [
+			"node"
+		]
+	},
+	"include": [
+		"src/**/*",
+		"../../src/vibecoda-dts/vibecoda.d.ts",
+		"../../src/vibecoda-dts/vibecoda.proposed.codeActionAI.d.ts",
+		"../../src/vibecoda-dts/vibecoda.proposed.codeActionRanges.d.ts",
+		"../../src/vibecoda-dts/vibecoda.proposed.multiDocumentHighlightProvider.d.ts",
+		"../../src/vibecoda-dts/vibecoda.proposed.workspaceTrust.d.ts",
+		"../../src/vibecoda-dts/vibecoda.proposed.editorHoverVerbosityLevel.d.ts",
+	]
+}

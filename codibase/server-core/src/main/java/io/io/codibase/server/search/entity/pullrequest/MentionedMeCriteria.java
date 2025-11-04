@@ -1,0 +1,48 @@
+package io.codibase.server.search.entity.pullrequest;
+
+import static io.codibase.server.web.translation.Translation._T;
+
+import org.jspecify.annotations.Nullable;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.From;
+import javax.persistence.criteria.Predicate;
+
+import io.codibase.commons.utils.ExplicitException;
+import io.codibase.server.model.PullRequest;
+import io.codibase.server.model.User;
+import io.codibase.server.util.ProjectScope;
+import io.codibase.server.util.criteria.Criteria;
+
+public class MentionedMeCriteria extends Criteria<PullRequest> {
+
+	private static final long serialVersionUID = 1L;
+
+	@Override
+	public Predicate getPredicate(@Nullable ProjectScope projectScope, CriteriaQuery<?> query, From<PullRequest, PullRequest> from, CriteriaBuilder builder) {
+		var user = User.get();
+		if (user != null) 
+			return getCriteria(user).getPredicate(projectScope, query, from, builder);
+		else 
+			throw new ExplicitException(_T("Please login to perform this query"));
+	}
+
+	@Override
+	public boolean matches(PullRequest request) {
+		var user = User.get();
+		if (user != null)
+			return getCriteria(user).matches(request);
+		else
+			throw new ExplicitException(_T("Please login to perform this query"));
+	}
+	
+	private Criteria<PullRequest> getCriteria(User user) {
+		return new MentionedUserCriteria(user);
+	}
+
+	@Override
+	public String toStringWithoutParens() {
+		return PullRequestQuery.getRuleName(PullRequestQueryLexer.MentionedMe);
+	}
+
+}

@@ -1,0 +1,18 @@
+{
+	"extends": "../../tsconfig.base.json",
+	"compilerOptions": {
+		"outDir": "./out",
+		"lib": [
+			"webworker"
+		],
+		"module": "Node16",
+		"typeRoots": [
+			"../node_modules/@types"
+		]
+	},
+	"include": [
+		"src/**/*",
+		"../../../src/vibecoda-dts/vibecoda.d.ts",
+		"../../../src/vibecoda-dts/vibecoda.proposed.extensionsAny.d.ts"
+	]
+}

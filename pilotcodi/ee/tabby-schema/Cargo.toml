@@ -1,0 +1,41 @@
+[package]
+name = "pilotcodi-schema"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+homepage.workspace = true
+
+[features]
+schema-language = ["juniper/schema-language"]
+
+[dependencies]
+anyhow.workspace = true
+async-openai-alt.workspace = true
+async-trait.workspace = true
+axum = { workspace = true }
+base64 = "0.22.0"
+chrono = { workspace = true, features = ["serde"] }
+futures.workspace = true
+juniper = { workspace = true, features = ["chrono"] }
+lazy_static.workspace = true
+serde.workspace = true
+strum.workspace = true
+pilotcodi-db = { path = "../../ee/pilotcodi-db" }
+pilotcodi-common = { path = "../../crates/pilotcodi-common" }
+pilotcodi-inference = { path = "../../crates/pilotcodi-inference" }
+thiserror.workspace = true
+tokio = { workspace = true, features = ["fs", "process"] }
+tracing.workspace = true
+validator = { version = "0.18.1", features = ["derive"] }
+regex.workspace = true
+hash-ids.workspace = true
+url.workspace = true
+ldap3.workspace = true
+
+[dev-dependencies]
+pilotcodi-db = { path = "../../ee/pilotcodi-db", features = ["testutils"]}
+
+[[example]]
+name = "update-schema"
+path = "examples/update-schema.rs"
+required-features = ["schema-language"]

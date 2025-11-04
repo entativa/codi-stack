@@ -1,0 +1,38 @@
+package io.codibase.server.security.permission;
+
+import io.codibase.server.util.facade.UserFacade;
+import io.codibase.commons.utils.match.StringMatcher;
+import io.codibase.server.util.patternset.PatternSet;
+import org.apache.shiro.authz.Permission;
+import org.jetbrains.annotations.Nullable;
+
+public class AccessBuildReports implements BasePermission {
+
+	private final String reportNames;
+	
+	private transient PatternSet reportPatterns;
+	
+	public AccessBuildReports(String reportNames) {
+		this.reportNames = reportNames;
+	}
+
+	private PatternSet getReportPatterns() {
+		if (reportPatterns == null)
+			reportPatterns = PatternSet.parse(reportNames);
+		return reportPatterns;
+	}
+	@Override
+	public boolean implies(Permission p) {
+		if (p instanceof AccessBuildReports) {
+			AccessBuildReports accessBuildReports = (AccessBuildReports) p;
+			return getReportPatterns().matches(new StringMatcher(), accessBuildReports.reportNames);
+		} else {
+			return new AccessBuild().implies(p);
+		}
+	}
+
+	@Override
+	public boolean isApplicable(@Nullable UserFacade user) {
+		return true;
+	}
+}

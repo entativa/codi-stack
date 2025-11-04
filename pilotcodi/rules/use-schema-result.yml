@@ -1,0 +1,17 @@
+id: use-schema-result
+message: Use schema::Result as API interface
+severity: error
+language: rust
+files:
+- ./ee/pilotcodi-schema/src/**
+ignores:
+- ./ee/pilotcodi-schema/src/lib.rs
+- ./ee/pilotcodi-schema/src/dao.rs
+rule:
+  any:
+    - pattern: anyhow
+      not:
+        inside:
+          kind: enum_variant
+          stopBy: end
+    - pattern: FieldResult

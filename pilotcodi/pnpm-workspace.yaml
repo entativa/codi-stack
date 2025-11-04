@@ -1,0 +1,4 @@
+packages:
+  - clients/*
+  - ee/pilotcodi-ui
+  - ee/pilotcodi-email

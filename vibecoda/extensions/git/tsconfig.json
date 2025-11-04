@@ -1,0 +1,33 @@
+{
+	"extends": "../tsconfig.base.json",
+	"compilerOptions": {
+		"outDir": "./out",
+		"typeRoots": [
+			"./node_modules/@types"
+		],
+		"skipLibCheck": true
+	},
+	"include": [
+		"src/**/*",
+		"../../src/vibecoda-dts/vibecoda.d.ts",
+		"../../src/vibecoda-dts/vibecoda.proposed.canonicalUriProvider.d.ts",
+		"../../src/vibecoda-dts/vibecoda.proposed.editSessionIdentityProvider.d.ts",
+		"../../src/vibecoda-dts/vibecoda.proposed.quickDiffProvider.d.ts",
+		"../../src/vibecoda-dts/vibecoda.proposed.quickInputButtonLocation.d.ts",
+		"../../src/vibecoda-dts/vibecoda.proposed.quickPickSortByLabel.d.ts",
+		"../../src/vibecoda-dts/vibecoda.proposed.scmActionButton.d.ts",
+		"../../src/vibecoda-dts/vibecoda.proposed.scmArtifactProvider.d.ts",
+		"../../src/vibecoda-dts/vibecoda.proposed.scmHistoryProvider.d.ts",
+		"../../src/vibecoda-dts/vibecoda.proposed.scmProviderOptions.d.ts",
+		"../../src/vibecoda-dts/vibecoda.proposed.scmSelectedProvider.d.ts",
+		"../../src/vibecoda-dts/vibecoda.proposed.scmValidation.d.ts",
+		"../../src/vibecoda-dts/vibecoda.proposed.scmMultiDiffEditor.d.ts",
+		"../../src/vibecoda-dts/vibecoda.proposed.scmTextDocument.d.ts",
+		"../../src/vibecoda-dts/vibecoda.proposed.statusBarItemTooltip.d.ts",
+		"../../src/vibecoda-dts/vibecoda.proposed.tabInputMultiDiff.d.ts",
+		"../../src/vibecoda-dts/vibecoda.proposed.tabInputTextMerge.d.ts",
+		"../../src/vibecoda-dts/vibecoda.proposed.textEditorDiffInformation.d.ts",
+		"../../src/vibecoda-dts/vibecoda.proposed.timeline.d.ts",
+		"../types/lib.textEncoder.d.ts"
+	]
+}

@@ -1,0 +1,13 @@
+{
+	// See https://go.microsoft.com/fwlink/?LinkId=827846
+	// for the documentation about the extensions.json format
+	"recommendations": [
+		"dbaeumer.vibecoda-eslint",
+		"editorconfig.editorconfig",
+		"github.vibecoda-pull-request-github",
+		"ms-vibecoda.vibecoda-github-issue-notebooks",
+		"ms-vibecoda.extension-test-runner",
+		"jrieken.vibecoda-pr-pinger",
+		"typescriptteam.native-preview"
+	]
+}

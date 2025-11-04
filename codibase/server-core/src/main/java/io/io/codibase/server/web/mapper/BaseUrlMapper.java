@@ -1,0 +1,468 @@
+package io.codibase.server.web.mapper;
+
+import org.apache.wicket.core.request.mapper.ResourceMapper;
+import org.apache.wicket.markup.html.pages.BrowserInfoPage;
+import org.apache.wicket.protocol.http.WebApplication;
+import org.apache.wicket.request.IRequestMapper;
+import org.apache.wicket.request.mapper.CompoundRequestMapper;
+
+import io.codibase.commons.utils.ExplicitException;
+import io.codibase.server.web.asset.icon.IconScope;
+import io.codibase.server.web.page.admin.alertsettings.AlertSettingPage;
+import io.codibase.server.web.page.admin.authenticator.AuthenticatorPage;
+import io.codibase.server.web.page.admin.brandingsetting.BrandingSettingPage;
+import io.codibase.server.web.page.admin.buildsetting.agent.AgentBuildsPage;
+import io.codibase.server.web.page.admin.buildsetting.agent.AgentListPage;
+import io.codibase.server.web.page.admin.buildsetting.agent.AgentLogPage;
+import io.codibase.server.web.page.admin.buildsetting.agent.AgentOverviewPage;
+import io.codibase.server.web.page.admin.buildsetting.jobexecutor.JobExecutorsPage;
+import io.codibase.server.web.page.admin.databasebackup.DatabaseBackupPage;
+import io.codibase.server.web.page.admin.emailtemplates.AlertTemplatePage;
+import io.codibase.server.web.page.admin.emailtemplates.BuildNotificationTemplatePage;
+import io.codibase.server.web.page.admin.emailtemplates.CommitNotificationTemplatePage;
+import io.codibase.server.web.page.admin.emailtemplates.EmailVerificationTemplatePage;
+import io.codibase.server.web.page.admin.emailtemplates.IssueNotificationTemplatePage;
+import io.codibase.server.web.page.admin.emailtemplates.IssueNotificationUnsubscribedTemplatePage;
+import io.codibase.server.web.page.admin.emailtemplates.PackNotificationTemplatePage;
+import io.codibase.server.web.page.admin.emailtemplates.PasswordResetTemplatePage;
+import io.codibase.server.web.page.admin.emailtemplates.PullRequestNotificationTemplatePage;
+import io.codibase.server.web.page.admin.emailtemplates.PullRequestNotificationUnsubscribedTemplatePage;
+import io.codibase.server.web.page.admin.emailtemplates.ServiceDeskIssueOpenFailedTemplatePage;
+import io.codibase.server.web.page.admin.emailtemplates.ServiceDeskIssueOpenedTemplatePage;
+import io.codibase.server.web.page.admin.emailtemplates.StopwatchOverdueTemplatePage;
+import io.codibase.server.web.page.admin.emailtemplates.UserInvitationTemplatePage;
+import io.codibase.server.web.page.admin.gpgsigningkey.GpgSigningKeyPage;
+import io.codibase.server.web.page.admin.gpgtrustedkeys.GpgTrustedKeysPage;
+import io.codibase.server.web.page.admin.groovyscript.GroovyScriptListPage;
+import io.codibase.server.web.page.admin.groupmanagement.GroupListPage;
+import io.codibase.server.web.page.admin.groupmanagement.authorization.GroupAuthorizationsPage;
+import io.codibase.server.web.page.admin.groupmanagement.create.NewGroupPage;
+import io.codibase.server.web.page.admin.groupmanagement.membership.GroupMembershipsPage;
+import io.codibase.server.web.page.admin.groupmanagement.profile.GroupProfilePage;
+import io.codibase.server.web.page.admin.issuesetting.commitmessagefixpatterns.CommitMessageFixPatternsPage;
+import io.codibase.server.web.page.admin.issuesetting.defaultboard.DefaultBoardListPage;
+import io.codibase.server.web.page.admin.issuesetting.externalissuepattern.ExternalIssueTransformersPage;
+import io.codibase.server.web.page.admin.issuesetting.fieldspec.IssueFieldListPage;
+import io.codibase.server.web.page.admin.issuesetting.integritycheck.CheckIssueIntegrityPage;
+import io.codibase.server.web.page.admin.issuesetting.issuetemplate.IssueTemplateListPage;
+import io.codibase.server.web.page.admin.issuesetting.linkspec.LinkSpecListPage;
+import io.codibase.server.web.page.admin.issuesetting.statespec.IssueStateListPage;
+import io.codibase.server.web.page.admin.issuesetting.timetracking.TimeTrackingSettingPage;
+import io.codibase.server.web.page.admin.issuesetting.transitionspec.StateTransitionListPage;
+import io.codibase.server.web.page.admin.labelmanagement.LabelManagementPage;
+import io.codibase.server.web.page.admin.mailservice.MailConnectorPage;
+import io.codibase.server.web.page.admin.performancesetting.PerformanceSettingPage;
+import io.codibase.server.web.page.admin.pluginsettings.ContributedAdministrationSettingPage;
+import io.codibase.server.web.page.admin.rolemanagement.NewRolePage;
+import io.codibase.server.web.page.admin.rolemanagement.RoleDetailPage;
+import io.codibase.server.web.page.admin.rolemanagement.RoleListPage;
+import io.codibase.server.web.page.admin.securitysetting.SecuritySettingPage;
+import io.codibase.server.web.page.admin.serverinformation.ServerInformationPage;
+import io.codibase.server.web.page.admin.serverlog.ServerLogPage;
+import io.codibase.server.web.page.admin.sshserverkey.SshServerKeyPage;
+import io.codibase.server.web.page.admin.ssosetting.NewSsoProviderPage;
+import io.codibase.server.web.page.admin.ssosetting.SsoProviderDetailPage;
+import io.codibase.server.web.page.admin.ssosetting.SsoProviderListPage;
+import io.codibase.server.web.page.admin.systemsetting.SystemSettingPage;
+import io.codibase.server.web.page.admin.usermanagement.InvitationListPage;
+import io.codibase.server.web.page.admin.usermanagement.NewInvitationPage;
+import io.codibase.server.web.page.admin.usermanagement.NewUserPage;
+import io.codibase.server.web.page.admin.usermanagement.UserListPage;
+import io.codibase.server.web.page.builds.BuildListPage;
+import io.codibase.server.web.page.error.PageNotFoundErrorPage;
+import io.codibase.server.web.page.help.IncompatibilitiesPage;
+import io.codibase.server.web.page.help.MethodDetailPage;
+import io.codibase.server.web.page.help.ResourceDetailPage;
+import io.codibase.server.web.page.help.ResourceListPage;
+import io.codibase.server.web.page.issues.IssueListPage;
+import io.codibase.server.web.page.my.accesstoken.MyAccessTokensPage;
+import io.codibase.server.web.page.my.avatar.MyAvatarPage;
+import io.codibase.server.web.page.my.basicsetting.MyBasicSettingPage;
+import io.codibase.server.web.page.my.emailaddresses.MyEmailAddressesPage;
+import io.codibase.server.web.page.my.gpgkeys.MyGpgKeysPage;
+import io.codibase.server.web.page.my.password.MyPasswordPage;
+import io.codibase.server.web.page.my.profile.MyProfilePage;
+import io.codibase.server.web.page.my.querywatch.MyQueryWatchesPage;
+import io.codibase.server.web.page.my.sshkeys.MySshKeysPage;
+import io.codibase.server.web.page.my.ssoaccounts.MySsoAccountsPage;
+import io.codibase.server.web.page.my.twofactorauthentication.MyTwoFactorAuthenticationPage;
+import io.codibase.server.web.page.packs.PackListPage;
+import io.codibase.server.web.page.project.NewProjectPage;
+import io.codibase.server.web.page.project.NoProjectStoragePage;
+import io.codibase.server.web.page.project.ProjectListPage;
+import io.codibase.server.web.page.project.blob.ProjectBlobPage;
+import io.codibase.server.web.page.project.branches.ProjectBranchesPage;
+import io.codibase.server.web.page.project.builds.ProjectBuildsPage;
+import io.codibase.server.web.page.project.builds.detail.InvalidBuildPage;
+import io.codibase.server.web.page.project.builds.detail.artifacts.BuildArtifactsPage;
+import io.codibase.server.web.page.project.builds.detail.changes.BuildChangesPage;
+import io.codibase.server.web.page.project.builds.detail.dashboard.BuildDashboardPage;
+import io.codibase.server.web.page.project.builds.detail.issues.FixedIssuesPage;
+import io.codibase.server.web.page.project.builds.detail.log.BuildLogPage;
+import io.codibase.server.web.page.project.builds.detail.pack.BuildPacksPage;
+import io.codibase.server.web.page.project.builds.detail.pipeline.BuildPipelinePage;
+import io.codibase.server.web.page.project.children.ProjectChildrenPage;
+import io.codibase.server.web.page.project.codecomments.InvalidCodeCommentPage;
+import io.codibase.server.web.page.project.codecomments.ProjectCodeCommentsPage;
+import io.codibase.server.web.page.project.commits.CommitDetailPage;
+import io.codibase.server.web.page.project.commits.ProjectCommitsPage;
+import io.codibase.server.web.page.project.compare.RevisionComparePage;
+import io.codibase.server.web.page.project.dashboard.ProjectDashboardPage;
+import io.codibase.server.web.page.project.imports.ProjectImportPage;
+import io.codibase.server.web.page.project.issues.boards.IssueBoardsPage;
+import io.codibase.server.web.page.project.issues.create.NewIssuePage;
+import io.codibase.server.web.page.project.issues.detail.IssueActivitiesPage;
+import io.codibase.server.web.page.project.issues.detail.IssueAuthorizationsPage;
+import io.codibase.server.web.page.project.issues.detail.IssueBuildsPage;
+import io.codibase.server.web.page.project.issues.detail.IssueCommitsPage;
+import io.codibase.server.web.page.project.issues.detail.IssueDetailPage;
+import io.codibase.server.web.page.project.issues.detail.IssuePullRequestsPage;
+import io.codibase.server.web.page.project.issues.imports.IssueImportPage;
+import io.codibase.server.web.page.project.issues.iteration.IterationBurndownPage;
+import io.codibase.server.web.page.project.issues.iteration.IterationEditPage;
+import io.codibase.server.web.page.project.issues.iteration.IterationIssuesPage;
+import io.codibase.server.web.page.project.issues.iteration.IterationListPage;
+import io.codibase.server.web.page.project.issues.iteration.NewIterationPage;
+import io.codibase.server.web.page.project.issues.list.ProjectIssueListPage;
+import io.codibase.server.web.page.project.packs.ProjectPacksPage;
+import io.codibase.server.web.page.project.packs.detail.PackDetailPage;
+import io.codibase.server.web.page.project.pullrequests.InvalidPullRequestPage;
+import io.codibase.server.web.page.project.pullrequests.ProjectPullRequestsPage;
+import io.codibase.server.web.page.project.pullrequests.create.NewPullRequestPage;
+import io.codibase.server.web.page.project.pullrequests.detail.activities.PullRequestActivitiesPage;
+import io.codibase.server.web.page.project.pullrequests.detail.changes.PullRequestChangesPage;
+import io.codibase.server.web.page.project.pullrequests.detail.codecomments.PullRequestCodeCommentsPage;
+import io.codibase.server.web.page.project.setting.avatar.AvatarEditPage;
+import io.codibase.server.web.page.project.setting.build.BuildPreservationsPage;
+import io.codibase.server.web.page.project.setting.build.CacheManagementPage;
+import io.codibase.server.web.page.project.setting.build.DefaultFixedIssueFiltersPage;
+import io.codibase.server.web.page.project.setting.build.JobPropertiesPage;
+import io.codibase.server.web.page.project.setting.build.JobSecretsPage;
+import io.codibase.server.web.page.project.setting.code.analysis.CodeAnalysisSettingPage;
+import io.codibase.server.web.page.project.setting.code.branchprotection.BranchProtectionsPage;
+import io.codibase.server.web.page.project.setting.code.git.GitPackConfigPage;
+import io.codibase.server.web.page.project.setting.code.pullrequest.PullRequestSettingPage;
+import io.codibase.server.web.page.project.setting.code.tagprotection.TagProtectionsPage;
+import io.codibase.server.web.page.project.setting.general.GeneralProjectSettingPage;
+import io.codibase.server.web.page.project.setting.pluginsettings.ContributedProjectSettingPage;
+import io.codibase.server.web.page.project.setting.servicedesk.ServiceDeskSettingPage;
+import io.codibase.server.web.page.project.setting.webhook.WebHooksPage;
+import io.codibase.server.web.page.project.stats.code.CodeContribsPage;
+import io.codibase.server.web.page.project.stats.code.SourceLinesPage;
+import io.codibase.server.web.page.project.tags.ProjectTagsPage;
+import io.codibase.server.web.page.pullrequests.PullRequestListPage;
+import io.codibase.server.web.page.security.CreateUserFromInvitationPage;
+import io.codibase.server.web.page.security.EmailAddressVerificationPage;
+import io.codibase.server.web.page.security.LoginPage;
+import io.codibase.server.web.page.security.LogoutPage;
+import io.codibase.server.web.page.security.OAuthCallbackPage;
+import io.codibase.server.web.page.security.PasswordResetPage;
+import io.codibase.server.web.page.security.SignUpPage;
+import io.codibase.server.web.page.security.SsoProcessPage;
+import io.codibase.server.web.page.serverinit.ServerInitPage;
+import io.codibase.server.web.page.test.TestPage;
+import io.codibase.server.web.page.user.accesstoken.UserAccessTokensPage;
+import io.codibase.server.web.page.user.avatar.UserAvatarPage;
+import io.codibase.server.web.page.user.basicsetting.UserBasicSettingPage;
+import io.codibase.server.web.page.user.emailaddresses.UserEmailAddressesPage;
+import io.codibase.server.web.page.user.gpgkeys.UserGpgKeysPage;
+import io.codibase.server.web.page.user.membership.UserMembershipsPage;
+import io.codibase.server.web.page.user.password.UserPasswordPage;
+import io.codibase.server.web.page.user.profile.UserProfilePage;
+import io.codibase.server.web.page.user.querywatch.UserQueryWatchesPage;
+import io.codibase.server.web.page.user.sshkeys.UserSshKeysPage;
+import io.codibase.server.web.page.user.ssoaccounts.UserSsoAccountsPage;
+import io.codibase.server.web.page.user.twofactorauthentication.UserTwoFactorAuthenticationPage;
+import io.codibase.server.web.resource.AgentLibResourceReference;
+import io.codibase.server.web.resource.AgentLogResourceReference;
+import io.codibase.server.web.resource.AgentResourceReference;
+import io.codibase.server.web.resource.ArchiveResourceReference;
+import io.codibase.server.web.resource.ArtifactResourceReference;
+import io.codibase.server.web.resource.AttachmentResourceReference;
+import io.codibase.server.web.resource.BuildLogResourceReference;
+import io.codibase.server.web.resource.PatchResourceReference;
+import io.codibase.server.web.resource.RawBlobResourceReference;
+import io.codibase.server.web.resource.ServerLogResourceReference;
+import io.codibase.server.web.resource.SiteFileResourceReference;
+import io.codibase.server.web.resource.SpriteResourceReference;
+
+public class BaseUrlMapper extends CompoundRequestMapper {
+
+	@Override
+	public CompoundRequestMapper add(IRequestMapper mapper) {
+		if (mapper instanceof ResourceMapper && !(mapper instanceof BaseResourceMapper))
+			throw new ExplicitException("Base resource mapper should be used");
+		return super.add(mapper);
+	}
+
+	public BaseUrlMapper(WebApplication app) {
+		add(new BasePageMapper("~init", ServerInitPage.class));
+		add(new BasePageMapper("~loading", BrowserInfoPage.class));
+		addProjectPages();
+		add(new BasePageMapper("~issues", IssueListPage.class));
+		add(new BasePageMapper("~pulls", PullRequestListPage.class));
+		add(new BasePageMapper("~builds", BuildListPage.class));
+		add(new BasePageMapper("~packages", PackListPage.class));
+		addAdministrationPages();
+		addUserPages();
+		addMyPages();
+		addSecurityPages();
+		addResources();
+		addHelpPages();
+		addErrorPages();
+		add(new BasePageMapper("~test", TestPage.class));
+	}
+
+	private void addHelpPages() {
+		add(new BasePageMapper("~help/incompatibilities", IncompatibilitiesPage.class));
+		add(new BasePageMapper("~help/api", ResourceListPage.class));
+		add(new BasePageMapper("~help/api/${resource}", ResourceDetailPage.class));
+		add(new BasePageMapper("~help/api/${resource}/${method}", MethodDetailPage.class));
+	}
+	
+	private void addMyPages() {
+		add(new BasePageMapper("~my", MyProfilePage.class));
+		add(new BasePageMapper("~my/basic-setting", MyBasicSettingPage.class));
+		add(new BasePageMapper("~my/email-addresses", MyEmailAddressesPage.class));
+		add(new BasePageMapper("~my/avatar", MyAvatarPage.class));
+		add(new BasePageMapper("~my/password", MyPasswordPage.class));
+		add(new BasePageMapper("~my/ssh-keys", MySshKeysPage.class));
+		add(new BasePageMapper("~my/gpg-keys", MyGpgKeysPage.class));
+		add(new BasePageMapper("~my/access-tokens", MyAccessTokensPage.class));
+		add(new BasePageMapper("~my/two-factor-authentication", MyTwoFactorAuthenticationPage.class));
+		add(new BasePageMapper("~my/sso-accounts", MySsoAccountsPage.class));
+		add(new BasePageMapper("~my/query-watches/#{tab}", MyQueryWatchesPage.class));
+	}
+
+	private void addResources() {
+		add(new BaseResourceMapper("~downloads/server-log", new ServerLogResourceReference()));
+		add(new BaseResourceMapper("~downloads/agent-logs/${agent}", new AgentLogResourceReference()));
+		add(new BaseResourceMapper("~downloads/agent.zip", new AgentResourceReference()));
+		add(new BaseResourceMapper("~downloads/agent.tar.gz", new AgentResourceReference()));
+		add(new BaseResourceMapper("~downloads/agent-lib", new AgentLibResourceReference()));
+		add(new BaseResourceMapper("~downloads/projects/${project}/builds/${build}/log", 
+				new BuildLogResourceReference()));
+		add(new BaseResourceMapper("~downloads/projects/${project}/archives", new ArchiveResourceReference()));
+		
+		add(new ProjectResourceMapper("${project}/~raw", new RawBlobResourceReference()));
+		add(new ProjectResourceMapper("${project}/~site", new SiteFileResourceReference()));
+		
+		// Change AttachmentResource.authorizeGroup accordingly if change attachment url here
+		add(new BaseResourceMapper("~downloads/projects/${project}/attachments/${attachment-group}/${attachment}", 
+				new AttachmentResourceReference()));		
+		add(new BaseResourceMapper("~downloads/projects/${project}/builds/${build}/artifacts", 
+				new ArtifactResourceReference()));
+		add(new BaseResourceMapper("~downloads/projects/${project}/patch", 
+				new PatchResourceReference()));
+		
+		add(new BaseResourceMapper(SpriteResourceReference.DEFAULT_MOUNT_PATH, 
+				new SpriteResourceReference(IconScope.class)));
+	}
+	
+	private void addErrorPages() {
+		add(new BasePageMapper("/~errors/404", PageNotFoundErrorPage.class));
+	}
+	
+	private void addSecurityPages() {
+		add(new BasePageMapper("~login", LoginPage.class));
+		add(new BasePageMapper("~logout", LogoutPage.class));
+		add(new BasePageMapper("~signup", SignUpPage.class));
+		add(new BasePageMapper("~reset-password/#{passwordResetCode}", PasswordResetPage.class));
+		add(new BasePageMapper("~verify-email-address/${emailAddress}/${verificationCode}", 
+				EmailAddressVerificationPage.class));
+		add(new BasePageMapper("~create-user-from-invitation/${emailAddress}/${invitationCode}", 
+				CreateUserFromInvitationPage.class));
+		add(new BasePageMapper(SsoProcessPage.MOUNT_PATH + "/${stage}/${provider}", SsoProcessPage.class));
+		add(new BasePageMapper(OAuthCallbackPage.MOUNT_PATH, OAuthCallbackPage.class));
+	}
+ 	
+	private void addUserPages() {
+		add(new BasePageMapper("~users/${user}", UserProfilePage.class));
+		add(new BasePageMapper("~users/${user}/basic-setting", UserBasicSettingPage.class));
+		add(new BasePageMapper("~users/${user}/email-setting", UserEmailAddressesPage.class));
+		add(new BasePageMapper("~users/${user}/groups", UserMembershipsPage.class));
+		add(new BasePageMapper("~users/${user}/authorizations", 
+				io.codibase.server.web.page.user.authorization.UserAuthorizationsPage.class));
+		add(new BasePageMapper("~users/${user}/avatar", UserAvatarPage.class));
+		add(new BasePageMapper("~users/${user}/password", UserPasswordPage.class));
+		add(new BasePageMapper("~users/${user}/ssh-keys", UserSshKeysPage.class));
+		add(new BasePageMapper("~users/${user}/gpg-keys", UserGpgKeysPage.class));
+		add(new BasePageMapper("~users/${user}/access-tokens", UserAccessTokensPage.class));
+		add(new BasePageMapper("~users/${user}/two-factor-authentication", UserTwoFactorAuthenticationPage.class));
+		add(new BasePageMapper("~users/${user}/sso-accounts", UserSsoAccountsPage.class));
+		add(new BasePageMapper("~users/${user}/query-watches/#{tab}", UserQueryWatchesPage.class));		
+	}
+
+	private void addAdministrationPages() {
+		add(new BasePageMapper("~administration/settings/system", SystemSettingPage.class));
+		add(new BasePageMapper("~administration/settings/security", SecuritySettingPage.class));
+		add(new BasePageMapper("~administration/users", UserListPage.class));
+		add(new BasePageMapper("~administration/users/new", NewUserPage.class));
+		add(new BasePageMapper("~administration/invitations", InvitationListPage.class));
+		add(new BasePageMapper("~administration/invitations/new", NewInvitationPage.class));
+		
+		add(new BasePageMapper("~administration/roles", RoleListPage.class));
+		add(new BasePageMapper("~administration/roles/new", NewRolePage.class));
+		add(new BasePageMapper("~administration/roles/${role}", RoleDetailPage.class));
+		
+		add(new BasePageMapper("~administration/groups", GroupListPage.class));
+		add(new BasePageMapper("~administration/groups/new", NewGroupPage.class));
+		add(new BasePageMapper("~administration/groups/${group}", GroupProfilePage.class));
+		add(new BasePageMapper("~administration/groups/${group}/members", GroupMembershipsPage.class));
+		add(new BasePageMapper("~administration/groups/${group}/authorizations", GroupAuthorizationsPage.class));
+		
+		add(new BasePageMapper("~administration/settings/mail-service", MailConnectorPage.class));
+		add(new BasePageMapper("~administration/settings/service-desk-setting", 
+				io.codibase.server.web.page.admin.servicedesk.ServiceDeskSettingPage.class));
+		add(new BasePageMapper("~administration/settings/email-templates/issue-notification", 
+				IssueNotificationTemplatePage.class));
+		add(new BasePageMapper("~administration/settings/email-templates/pull-request-notification", 
+				PullRequestNotificationTemplatePage.class));
+		add(new BasePageMapper("~administration/settings/email-templates/build-notification",
+				BuildNotificationTemplatePage.class));
+		add(new BasePageMapper("~administration/settings/email-templates/pack-notification",
+				PackNotificationTemplatePage.class));
+		add(new BasePageMapper("~administration/settings/email-templates/commit-notification",
+				CommitNotificationTemplatePage.class));
+		add(new BasePageMapper("~administration/settings/email-templates/issue-notification-unsubscribed",
+				IssueNotificationUnsubscribedTemplatePage.class));
+		add(new BasePageMapper("~administration/settings/email-templates/pull-request-notification-unsubscribed",
+				PullRequestNotificationUnsubscribedTemplatePage.class));
+		add(new BasePageMapper("~administration/settings/email-templates/service-desk-issue-opened",
+				ServiceDeskIssueOpenedTemplatePage.class));
+		add(new BasePageMapper("~administration/settings/email-templates/service-desk-issue-open-failed",
+				ServiceDeskIssueOpenFailedTemplatePage.class));
+		add(new BasePageMapper("~administration/settings/email-templates/user-invitation",
+				UserInvitationTemplatePage.class));
+		add(new BasePageMapper("~administration/settings/email-templates/email-verification",
+				EmailVerificationTemplatePage.class));
+		add(new BasePageMapper("~administration/settings/email-templates/password-reset",
+				PasswordResetTemplatePage.class));
+		add(new BasePageMapper("~administration/settings/email-templates/stopwatch-overdue",
+				StopwatchOverdueTemplatePage.class));
+		add(new BasePageMapper("~administration/settings/email-templates/alert",
+				AlertTemplatePage.class));
+		
+		add(new BasePageMapper("~administration/labels", LabelManagementPage.class));
+		add(new BasePageMapper("~administration/settings/alert", AlertSettingPage.class));
+		add(new BasePageMapper("~administration/settings/performance", PerformanceSettingPage.class));
+		add(new BasePageMapper("~administration/settings/backup", DatabaseBackupPage.class));
+		add(new BasePageMapper("~administration/settings/authenticator", AuthenticatorPage.class));
+		add(new BasePageMapper("~administration/settings/sso-providers", SsoProviderListPage.class));
+		add(new BasePageMapper("~administration/settings/sso-providers/new", NewSsoProviderPage.class));
+		add(new BasePageMapper("~administration/settings/sso-providers/${provider}", SsoProviderDetailPage.class));
+		add(new BasePageMapper("~administration/settings/ssh-server-key", SshServerKeyPage.class));
+ 		add(new BasePageMapper("~administration/settings/gpg-signing-key", GpgSigningKeyPage.class));
+ 		add(new BasePageMapper("~administration/settings/gpg-trusted-keys", GpgTrustedKeysPage.class));
+
+		add(new BasePageMapper("~administration/agents", AgentListPage.class));
+		add(new BasePageMapper("~administration/agents/${agent}", AgentOverviewPage.class));
+		add(new BasePageMapper("~administration/agents/${agent}/builds", AgentBuildsPage.class));
+		add(new BasePageMapper("~administration/agents/${agent}/log", AgentLogPage.class));
+		add(new BasePageMapper("~administration/settings/job-executors", JobExecutorsPage.class));
+		add(new BasePageMapper("~administration/settings/groovy-scripts", GroovyScriptListPage.class));
+
+		add(new BasePageMapper("~administration/settings/issue-fields", IssueFieldListPage.class));
+		add(new BasePageMapper("~administration/settings/issue-states", IssueStateListPage.class));
+		add(new BasePageMapper("~administration/settings/state-transitions", StateTransitionListPage.class));
+		add(new BasePageMapper("~administration/settings/issue-boards", DefaultBoardListPage.class));
+		add(new BasePageMapper("~administration/settings/issue-links", LinkSpecListPage.class));
+		add(new BasePageMapper("~administration/settings/time-tracking", TimeTrackingSettingPage.class));
+		add(new BasePageMapper("~administration/settings/issue-templates", IssueTemplateListPage.class));
+		add(new BasePageMapper("~administration/settings/commit-message-fix-patterns", CommitMessageFixPatternsPage.class));
+		add(new BasePageMapper("~administration/settings/external-issue-transformers", ExternalIssueTransformersPage.class));
+		add(new BasePageMapper("~administration/settings/check-issue-integrity", CheckIssueIntegrityPage.class));
+		
+		add(new BasePageMapper("~administration/settings/branding", BrandingSettingPage.class));
+		
+		add(new BasePageMapper("~administration/settings/${" + ContributedAdministrationSettingPage.PARAM_SETTING + "}", 
+				ContributedAdministrationSettingPage.class));
+		
+		add(new BasePageMapper("~administration/server-log/#{" + ServerLogPage.PARAM_SERVER + "}", ServerLogPage.class));
+		add(new BasePageMapper("~administration/server-information/#{" + ServerInformationPage.PARAM_SERVER + "}", ServerInformationPage.class));
+	}
+	
+	private void addProjectPages() {
+		add(new BasePageMapper("~projects", ProjectListPage.class));
+		add(new BasePageMapper("~projects/new", NewProjectPage.class));
+		add(new BasePageMapper("~projects/import/${importer}", ProjectImportPage.class));
+
+		// For backward compatibility
+		add(new BasePageMapper("projects/${project}", ProjectDashboardPage.class));
+		
+		add(new ProjectPageMapper("${project}", ProjectDashboardPage.class));
+
+		add(new ProjectPageMapper("${project}/~files", ProjectBlobPage.class));
+		add(new ProjectPageMapper("${project}/~commits", ProjectCommitsPage.class));
+		add(new ProjectPageMapper("${project}/~commits/${commit}", CommitDetailPage.class));
+		add(new ProjectPageMapper("${project}/~compare", RevisionComparePage.class));
+		add(new ProjectPageMapper("${project}/~stats/code/contribs", CodeContribsPage.class));
+		add(new ProjectPageMapper("${project}/~stats/code/lines", SourceLinesPage.class));
+
+		add(new ProjectPageMapper("${project}/~branches", ProjectBranchesPage.class));
+		add(new ProjectPageMapper("${project}/~tags", ProjectTagsPage.class));
+		add(new ProjectPageMapper("${project}/~code-comments", ProjectCodeCommentsPage.class));
+		add(new ProjectPageMapper("${project}/~code-comments/${code-comment}/invalid", InvalidCodeCommentPage.class));
+
+		add(new ProjectPageMapper("${project}/~pulls", ProjectPullRequestsPage.class));
+		add(new ProjectPageMapper("${project}/~pulls/new", NewPullRequestPage.class));
+		add(new ProjectPageMapper("${project}/~pulls/${request}", PullRequestActivitiesPage.class));
+		add(new ProjectPageMapper("${project}/~pulls/${request}/code-comments", PullRequestCodeCommentsPage.class));
+		add(new ProjectPageMapper("${project}/~pulls/${request}/changes", PullRequestChangesPage.class));
+		add(new ProjectPageMapper("${project}/~pulls/${request}/invalid", InvalidPullRequestPage.class));
+
+		add(new ProjectPageMapper("${project}/~boards", IssueBoardsPage.class));
+		add(new ProjectPageMapper("${project}/~boards/${board}", IssueBoardsPage.class));
+		add(new ProjectPageMapper("${project}/~issues", ProjectIssueListPage.class));
+		add(new ProjectPageMapper("${project}/~issues/${issue}", IssueDetailPage.class));
+		add(new ProjectPageMapper("${project}/~issues/${issue}", IssueActivitiesPage.class));
+		add(new ProjectPageMapper("${project}/~issues/${issue}/commits", IssueCommitsPage.class));
+		add(new ProjectPageMapper("${project}/~issues/${issue}/pulls", IssuePullRequestsPage.class));
+		add(new ProjectPageMapper("${project}/~issues/${issue}/builds", IssueBuildsPage.class));
+		add(new ProjectPageMapper("${project}/~issues/${issue}/authorizations", IssueAuthorizationsPage.class));
+		add(new ProjectPageMapper("${project}/~issues/new", NewIssuePage.class));
+		add(new ProjectPageMapper("${project}/~issues/import/${importer}", IssueImportPage.class));
+		add(new ProjectPageMapper("${project}/~iterations", IterationListPage.class));
+		add(new ProjectPageMapper("${project}/~iterations/${iteration}", IterationIssuesPage.class));
+		add(new ProjectPageMapper("${project}/~iterations/${iteration}/burndown", IterationBurndownPage.class));
+		add(new ProjectPageMapper("${project}/~iterations/${iteration}/edit", IterationEditPage.class));
+		add(new ProjectPageMapper("${project}/~iterations/new", NewIterationPage.class));
+		
+		add(new ProjectPageMapper("${project}/~builds", ProjectBuildsPage.class));
+		add(new ProjectPageMapper("${project}/~builds/${build}", BuildDashboardPage.class));
+		add(new ProjectPageMapper("${project}/~builds/${build}/pipeline", BuildPipelinePage.class));
+		add(new ProjectPageMapper("${project}/~builds/${build}/log", BuildLogPage.class));
+		add(new ProjectPageMapper("${project}/~builds/${build}/changes", BuildChangesPage.class));
+		add(new ProjectPageMapper("${project}/~builds/${build}/fixed-issues", FixedIssuesPage.class));
+		add(new ProjectPageMapper("${project}/~builds/${build}/artifacts", BuildArtifactsPage.class));
+		add(new ProjectPageMapper("${project}/~builds/${build}/packages/${type}", BuildPacksPage.class));
+		add(new ProjectPageMapper("${project}/~builds/${build}/invalid", InvalidBuildPage.class));
+
+		add(new ProjectPageMapper("${project}/~packages", ProjectPacksPage.class));
+		add(new ProjectPageMapper("${project}/~packages/${pack}", PackDetailPage.class));
+		
+		add(new ProjectPageMapper("${project}/~children", ProjectChildrenPage.class));
+		
+		add(new ProjectPageMapper("${project}/~settings/general", GeneralProjectSettingPage.class));
+		add(new ProjectPageMapper("${project}/~settings/user-authorizations", io.codibase.server.web.page.project.setting.authorization.UserAuthorizationsPage.class));
+		add(new ProjectPageMapper("${project}/~settings/group-authorizations", io.codibase.server.web.page.project.setting.authorization.GroupAuthorizationsPage.class));
+		add(new ProjectPageMapper("${project}/~settings/avatar-edit", AvatarEditPage.class));
+		add(new ProjectPageMapper("${project}/~settings/branch-protection", BranchProtectionsPage.class));
+		add(new ProjectPageMapper("${project}/~settings/tag-protection", TagProtectionsPage.class));
+		add(new ProjectPageMapper("${project}/~settings/code-analysis", CodeAnalysisSettingPage.class));
+		add(new ProjectPageMapper("${project}/~settings/git-pack-config", GitPackConfigPage.class));
+		add(new ProjectPageMapper("${project}/~settings/pull-request", PullRequestSettingPage.class));
+		add(new ProjectPageMapper("${project}/~settings/build/job-secrets", JobSecretsPage.class));
+		add(new ProjectPageMapper("${project}/~settings/build/job-properties", JobPropertiesPage.class));
+		add(new ProjectPageMapper("${project}/~settings/build/build-preserve-rules", BuildPreservationsPage.class));
+		add(new ProjectPageMapper("${project}/~settings/build/default-fixed-issues-filter", DefaultFixedIssueFiltersPage.class));
+		add(new ProjectPageMapper("${project}/~settings/build/cache-management", CacheManagementPage.class));
+		add(new ProjectPageMapper("${project}/~settings/service-desk", ServiceDeskSettingPage.class));
+		add(new ProjectPageMapper("${project}/~settings/web-hooks", WebHooksPage.class));
+		add(new ProjectPageMapper("${project}/~settings/${" + ContributedProjectSettingPage.PARAM_SETTING + "}", 
+				ContributedProjectSettingPage.class));
+		add(new ProjectPageMapper("${project}/~no-storage", NoProjectStoragePage.class));
+		
+	}
+
+}

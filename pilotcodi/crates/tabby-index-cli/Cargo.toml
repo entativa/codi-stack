@@ -1,0 +1,14 @@
+[package]
+name = "pilotcodi-index-cli"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+homepage.workspace = true
+
+[dependencies]
+clap = { workspace = true, features = ["derive"]}
+tantivy.workspace = true
+pilotcodi-common = { path = "../pilotcodi-common" }
+anyhow.workspace = true
+serde.workspace = true
+serde_json.workspace = true

@@ -1,0 +1,482 @@
+{
+	"editor": [
+		{
+			"name": "vs/platform",
+			"project": "vibecoda-editor"
+		},
+		{
+			"name": "vs/editor/contrib",
+			"project": "vibecoda-editor"
+		},
+		{
+			"name": "vs/editor",
+			"project": "vibecoda-editor"
+		},
+		{
+			"name": "vs/base",
+			"project": "vibecoda-editor"
+		}
+	],
+	"workbench": [
+		{
+			"name": "vs/code",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/api/common",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/bulkEdit",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/cli",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/codeEditor",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/callHierarchy",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/typeHierarchy",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/codeActions",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/comments",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/debug",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/dialogs",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/emmet",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/experiments",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/extensions",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/externalTerminal",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/feedback",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/files",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/html",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/issue",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/inlayHints",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/interactive",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/languageStatus",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/keybindings",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/markers",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/mergeEditor",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/localization",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/logs",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/output",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/performance",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/preferences",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/notebook",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/quickaccess",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/userData",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/remote",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/relauncher",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/sash",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/scm",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/search",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/searchEditor",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/snippets",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/format",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/tags",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/surveys",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/tasks",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/testing",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/terminal",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/themes",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/trust",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/update",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/url",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/watermark",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/webview",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/webviewPanel",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/workspace",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/workspaces",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/customEditor",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/externalUriOpener",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/welcomeGettingStarted",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/welcomeOverlay",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/welcomePage",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/welcomeViews",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/welcomeWalkthrough",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/outline",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/userDataSync",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/editSessions",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/views",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/languageDetection",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/audioCues",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/deprecatedExtensionMigrator",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/bracketPairColorizer2Telemetry",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/offline",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/services/actions",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/services/authToken",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/services/backup",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/services/bulkEdit",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/services/clipboard",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/services/commands",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/services/configuration",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/services/configurationResolver",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/services/dialogs",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/services/editor",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/services/extensions",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/services/extensionManagement",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/services/files",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/services/history",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/services/log",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/services/integrity",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/services/keybinding",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/services/lifecycle",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/services/language",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/services/progress",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/services/remote",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/services/search",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/services/textfile",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/services/themes",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/services/textMate",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/services/workingCopy",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/services/workspaces",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/services/decorations",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/services/label",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/services/preferences",
+			"project": "vibecoda-preferences"
+		},
+		{
+			"name": "vs/workbench/services/notification",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/services/userData",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/services/userDataSync",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/services/editSessions",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/services/views",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/timeline",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/localHistory",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/services/authentication",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/services/extensionRecommendations",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/services/gettingStarted",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/services/host",
+			"project": "vibecoda-workbench"
+		},
+		{
+			"name": "vs/workbench/contrib/userDataProfile",
+			"project": "vibecoda-profiles"
+		},
+		{
+			"name": "vs/workbench/services/userDataProfile",
+			"project": "vibecoda-profiles"
+		}
+	]
+}

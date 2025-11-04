@@ -1,0 +1,12 @@
+{
+  "name": "pilotcodi4eclipse",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/copy-dependencies.js"
+  },
+  "devDependencies": {
+    "pilotcodi-agent": "workspace:*",
+    "pilotcodi-chat-panel": "workspace:*",
+    "fs-extra": "^11.1.1"
+  }
+}

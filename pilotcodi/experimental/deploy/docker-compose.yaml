@@ -1,0 +1,36 @@
+version: '3.5'
+
+services:
+  web:
+    image: caddy
+    volumes:
+      - "./Caddyfile:/etc/caddy/Caddyfile:ro"
+    ports:
+      - 8080:8080
+
+  pilotcodi:
+    restart: always
+    image: pilotcodiml/pilotcodi
+    platform: linux/amd64
+    command: serve --model PilotCodiML/T5P-220M
+    volumes:
+      - "$HOME/.pilotcodi:/data"
+
+  scheduler:
+    restart: always
+    image: pilotcodiml/pilotcodi
+    platform: linux/amd64
+    command: scheduler
+    volumes:
+      - "$HOME/.pilotcodi:/data"
+
+  klaus:
+    restart: always
+    image: jonashaag/klaus
+    environment:
+      KLAUS_REPOS_ROOT: /repos
+      KLAUS_SITE_NAME: pilotcodi
+    command: |
+      sh -c 'git config --global --add safe.directory "*" && pip install gunicorn && gunicorn klaus.contrib.wsgi_autoreload -b 0.0.0.0:8080'
+    volumes:
+      - "$HOME/.pilotcodi/repositories:/repos:ro"

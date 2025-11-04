@@ -1,0 +1,87 @@
+package io.codibase.server.plugin.imports.gitea;
+
+import com.google.common.collect.Lists;
+import io.codibase.commons.utils.TaskLogger;
+import io.codibase.server.imports.ProjectImporter;
+import io.codibase.server.web.component.taskbutton.TaskResult;
+import io.codibase.server.web.util.ImportStep;
+
+import static io.codibase.server.web.translation.Translation._T;
+
+import java.io.Serializable;
+import java.util.List;
+
+public class GiteaProjectImporter implements ProjectImporter {
+
+	private static final long serialVersionUID = 1L;
+	
+	private final ImportStep<ImportServer> serverStep = new ImportStep<ImportServer>() {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getTitle() {
+			return _T("Authenticate to Gitea");
+		}
+
+		@Override
+		protected ImportServer newSetting() {
+			return new ImportServer();
+		}
+		
+	};
+	
+	private final ImportStep<ImportRepositories> repositoriesStep = new ImportStep<ImportRepositories>() {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getTitle() {
+			return _T("Specify repositories");
+		}
+
+		@Override
+		protected ImportRepositories newSetting() {
+			ImportRepositories repositories = new ImportRepositories();
+			repositories.server = serverStep.getSetting();
+			return repositories;
+		}
+		
+	};
+	
+	private final ImportStep<ProjectImportOption> optionStep = new ImportStep<ProjectImportOption>() {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getTitle() {
+			return _T("Specify import option");
+		}
+
+		@Override
+		protected ProjectImportOption newSetting() {
+			ProjectImportOption option = new ProjectImportOption();
+			option.setIssueImportOption(serverStep.getSetting().buildIssueImportOption(repositoriesStep.getSetting().getImportRepositories()));
+			return option;
+		}
+		
+	};
+	
+	@Override
+	public String getName() {
+		return GiteaModule.NAME;
+	}
+
+	@Override
+	public TaskResult doImport(boolean dryRun, TaskLogger logger) {
+		ImportRepositories repositories = repositoriesStep.getSetting();
+		ProjectImportOption option = optionStep.getSetting();
+		return serverStep.getSetting().importProjects(repositories, option, dryRun, logger);
+	}
+
+	@Override
+	public List<ImportStep<? extends Serializable>> getSteps() {
+		return Lists.newArrayList(serverStep, repositoriesStep, optionStep);
+	}
+
+}

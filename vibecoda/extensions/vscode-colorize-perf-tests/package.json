@@ -1,0 +1,31 @@
+{
+  "name": "vibecoda-colorize-perf-tests",
+  "description": "Colorize performance tests for Vibecoda",
+  "version": "0.0.1",
+  "publisher": "vibecoda",
+  "license": "MIT",
+  "private": true,
+  "activationEvents": [
+    "onLanguage:json"
+  ],
+  "main": "./out/colorizerTestMain",
+  "engines": {
+    "vibecoda": "*"
+  },
+  "icon": "media/icon.png",
+  "scripts": {
+    "vibecoda:prepublish": "node ../../node_modules/gulp/bin/gulp.js --gulpfile ../../build/gulpfile.extensions.js compile-extension:vibecoda-colorize-perf-tests ./tsconfig.json",
+    "watch": "gulp watch-extension:vibecoda-colorize-perf-tests",
+    "compile": "gulp compile-extension:vibecoda-colorize-perf-tests"
+  },
+  "dependencies": {
+    "jsonc-parser": "^3.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "22.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/microsoft/vibecoda.git"
+  }
+}

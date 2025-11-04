@@ -1,0 +1,62 @@
+{
+  "name": "search-result",
+  "displayName": "%displayName%",
+  "description": "%description%",
+  "version": "1.0.0",
+  "publisher": "vibecoda",
+  "license": "MIT",
+  "icon": "images/icon.png",
+  "engines": {
+    "vibecoda": "^1.39.0"
+  },
+  "main": "./out/extension.js",
+  "browser": "./dist/extension.js",
+  "activationEvents": [
+    "onLanguage:search-result"
+  ],
+  "scripts": {
+    "generate-grammar": "node ./syntaxes/generateTMLanguage.js",
+    "vibecoda:prepublish": "node ../../node_modules/gulp/bin/gulp.js --gulpfile ../../build/gulpfile.extensions.js compile-extension:search-result ./tsconfig.json"
+  },
+  "capabilities": {
+    "virtualWorkspaces": true,
+    "untrustedWorkspaces": {
+      "supported": true
+    }
+  },
+  "enabledApiProposals": [
+    "documentFiltersExclusive"
+  ],
+  "contributes": {
+    "configurationDefaults": {
+      "[search-result]": {
+        "editor.lineNumbers": "off"
+      }
+    },
+    "languages": [
+      {
+        "id": "search-result",
+        "extensions": [
+          ".code-search"
+        ],
+        "aliases": [
+          "Search Result"
+        ]
+      }
+    ],
+    "grammars": [
+      {
+        "language": "search-result",
+        "scopeName": "text.searchResult",
+        "path": "./syntaxes/searchResult.tmLanguage.json"
+      }
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/microsoft/vibecoda.git"
+  },
+  "devDependencies": {
+    "@types/node": "^22.18.10"
+  }
+}

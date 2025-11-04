@@ -1,0 +1,9 @@
+
+# PilotCodi config
+pilotcodi_path = "/home/jiachen/workspace/pilotcodiml/pilotcodi/target/debug/pilotcodi"
+
+# Indexing / prompt rewriting config
+index_repo_url = "https://github.com/huggingface/transformers"
+sample_repo_url = "https://github.com/huggingface/transformers"
+language = "python"
+prompt_count = 10

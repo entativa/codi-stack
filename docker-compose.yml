@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  telemetry:
+    build: ./telemetry-service
+    ports:
+      - "8080:8080"
+    volumes:
+      - telemetry-data:/app/data
+    restart: unless-stopped
+
+  codibase:
+    build: ./codibase
+    ports:
+      - "6610:6610"
+    environment:
+      - HIBERNATE_DIALECT=org.hibernate.dialect.PostgreSQLDialect
+      - HIBERNATE_CONNECTION_DRIVER_CLASS=org.postgresql.Driver
+      - HIBERNATE_CONNECTION_URL=jdbc:postgresql://postgres:5432/codibase
+      - HIBERNATE_CONNECTION_USERNAME=codibase
+      - HIBERNATE_CONNECTION_PASSWORD=codibase
+    depends_on:
+      - postgres
+    restart: unless-stopped
+
+  pilotcodi:
+    build: ./pilotcodi
+    ports:
+      - "8081:8081"
+    environment:
+      - TELEMETRY_ENDPOINT=http://telemetry:8080/collect
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:15
+    environment:
+      - POSTGRES_DB=codibase
+      - POSTGRES_USER=codibase
+      - POSTGRES_PASSWORD=codibase
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  telemetry-data:
+  postgres-data:

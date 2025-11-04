@@ -1,0 +1,40 @@
+{
+  "name": "log",
+  "displayName": "%displayName%",
+  "description": "%description%",
+  "version": "1.0.0",
+  "publisher": "vibecoda",
+  "license": "MIT",
+  "engines": {
+    "vibecoda": "*"
+  },
+  "scripts": {
+    "update-grammar": "node ../node_modules/vibecoda-grammar-updater/bin emilast/vibecoda-logfile-highlighter syntaxes/log.tmLanguage ./syntaxes/log.tmLanguage.json"
+  },
+  "categories": ["Programming Languages"],
+  "contributes": {
+    "languages": [
+      {
+        "id": "log",
+        "extensions": [
+          ".log",
+          "*.log.?"
+        ],
+        "aliases": [
+          "Log"
+        ]
+      }
+    ],
+    "grammars": [
+      {
+        "language": "log",
+        "scopeName": "text.log",
+        "path": "./syntaxes/log.tmLanguage.json"
+      }
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/microsoft/vibecoda.git"
+  }
+}
