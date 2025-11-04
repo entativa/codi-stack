@@ -1,6 +1,20 @@
 version: '3.8'
 
 services:
+  gateway:
+    build: ./codibase-gateway
+    ports:
+      - "8000:8000"
+    environment:
+      - CODIBASE_URL=http://codibase:6610
+      - PILOTCODI_URL=http://pilotcodi:8081
+      - TELEMETRY_URL=http://telemetry:8080
+    depends_on:
+      - codibase
+      - pilotcodi
+      - telemetry
+    restart: unless-stopped
+
   telemetry:
     build: ./telemetry-service
     ports:
@@ -19,8 +33,11 @@ services:
       - HIBERNATE_CONNECTION_URL=jdbc:postgresql://postgres:5432/codibase
       - HIBERNATE_CONNECTION_USERNAME=codibase
       - HIBERNATE_CONNECTION_PASSWORD=codibase
+      - PILOTCODI_URL=http://pilotcodi:8081
+      - TELEMETRY_URL=http://telemetry:8080
     depends_on:
       - postgres
+      - pilotcodi
     restart: unless-stopped
 
   pilotcodi:
@@ -29,6 +46,10 @@ services:
       - "8081:8081"
     environment:
       - TELEMETRY_ENDPOINT=http://telemetry:8080/collect
+      - CLAUDE_API_KEY=${CLAUDE_API_KEY:-}
+      - ENABLE_HYBRID_MODE=true
+    volumes:
+      - pilotcodi-models:/app/models
     restart: unless-stopped
 
   postgres:
@@ -40,7 +61,17 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data
     restart: unless-stopped
+    
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    restart: unless-stopped
 
 volumes:
   telemetry-data:
   postgres-data:
+  pilotcodi-models:
+  redis-data:

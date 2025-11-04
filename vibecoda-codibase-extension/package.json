@@ -1,0 +1,50 @@
+{
+  "name": "vibecoda-codibase",
+  "displayName": "CodiBase Integration",
+  "description": "Seamless integration between Vibecoda and CodiBase",
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "*"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "codibase.cloneRepo",
+        "title": "CodiBase: Clone Repository"
+      },
+      {
+        "command": "codibase.createPR",
+        "title": "CodiBase: Create Pull Request"
+      },
+      {
+        "command": "codibase.aiReview",
+        "title": "CodiBase: AI Code Review"
+      },
+      {
+        "command": "codibase.smartMerge",
+        "title": "CodiBase: Smart Merge"
+      }
+    ],
+    "configuration": {
+      "title": "CodiBase",
+      "properties": {
+        "codibase.serverUrl": {
+          "type": "string",
+          "default": "http://localhost:6610",
+          "description": "CodiBase server URL"
+        },
+        "codibase.apiToken": {
+          "type": "string",
+          "description": "CodiBase API token"
+        }
+      }
+    }
+  }
+}
