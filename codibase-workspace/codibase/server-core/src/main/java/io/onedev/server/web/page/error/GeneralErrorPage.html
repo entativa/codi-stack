@@ -1,0 +1,13 @@
+<wicket:extend>
+	<div wicket:id="error">
+   		<div class="actions">
+        	<a wicket:id="home" class="btn btn-light-primary"><wicket:t>Back To Home</wicket:t></a>
+			<a wicket:id="showDetail" class="btn btn-primary"><wicket:t>Show Error Detail</wicket:t></a>			
+		</div>
+		<div wicket:id="errorDetail" class="position-relative"></div>
+    </div>
+	<wicket:fragment wicket:id="errorDetailFrag">
+		<div wicket:id="content" class="error-detail alert alert-light"></div>
+		<span class="position-absolute copy"><a wicket:id="copy" t:data-tippy-content="Copy"><wicket:svg href="copy" class="icon"/></a></span>
+	</wicket:fragment>
+</wicket:extend>

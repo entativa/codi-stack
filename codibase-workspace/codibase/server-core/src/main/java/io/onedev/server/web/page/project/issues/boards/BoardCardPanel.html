@@ -1,0 +1,26 @@
+<wicket:panel>
+	<div wicket:id="content"></div>
+	<wicket:fragment wicket:id="contentFrag">
+		<div class="primary d-flex align-items-center flex-wrap row-gap-2 mb-3">
+			<span wicket:id="numberAndTitle" class="font-weight-bold mr-2"></span>
+			<a wicket:id="copy" class="btn btn-xs btn-icon btn-light btn-hover-primary copy flex-shrink-0 mr-2" t:data-tippy-content="Copy issue number and title"><wicket:svg href="copy" class="icon"></wicket:svg></a>
+			<span wicket:id="links" class="links mr-2"></span>
+			<a wicket:id="showDetail" t:data-tippy-content="Click to show issue details" class="show-detail"><wicket:svg href="ellipsis" class="icon"/></a>
+		</div>
+		<div class="secondary d-flex align-items-center flex-wrap mb-n2">
+			<div wicket:id="fields" class="field mr-1 mr-last-child-0"></div>
+			<div class="avatars-and-progress ml-auto d-flex align-items-center flex-wrap">
+				<div wicket:id="avatars" class="avatar"></div>
+				<div wicket:id="progress" class="d-flex align-items-center mr-2 mb-2"></div>
+			</div>
+		</div>
+		<wicket:enclosure child="linkedIssues">
+		<div class="linked-issues pl-3">
+			<div wicket:id="linkedIssues" class="linked-issue"><div wicket:id="content"></div></div>
+		</div>
+		</wicket:enclosure>
+	</wicket:fragment>
+	<wicket:fragment wicket:id="stateFrag">
+		<div wicket:id="transit" class="state"><span wicket:id="state" class="mb-2 mr-2"></span></div>
+	</wicket:fragment>
+</wicket:panel>

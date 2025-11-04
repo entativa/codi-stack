@@ -1,0 +1,6 @@
+.issue-primary>.links>li>.body>li>.action {
+	display: none;
+}
+.issue-primary>.links>li>.body>li:hover>.action {
+	display: inline-block;
+}
