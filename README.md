@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![CodiBase Logo](docs/assets/logo.png)
+![CodiBase Logo](docs/cblogo.png)
 
 **The AI-Native Development Platform That GitHub Wishes It Built**
 
